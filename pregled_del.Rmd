@@ -1,0 +1,256 @@
+---
+title: "Pregled del"
+author: "Neza Krzan"
+date: "2024-11-13"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Objective Assessment of the Finger Tapping Task in Parkinson’s Disease and Control Subjects using Azure Kinect and Machine Learning
+
+ 
+- sistem za objektivno karaketrizacijo Finger Tapping-a(FT) iz RGB-globinskih video posnetkov,
+- inovativni pristop za 3D-sledenje rok (tj. algoritem GMH-D in metode strojnega učenja),
+- 60(od tega 27 žensk) zdravih primerov(kontrolna skupina) in 35 pacientov(od tega 15 žensk) s Parkinsonovo boleznijo, skupno 95,
+- izvedena je bila ena sama pridobitev podatkov za vsakega posameznika,
+- kontrolna skupina je nalogo izvedla samo z dominanto roko; nasprotno pa so morali pcienti s Parkinsonovo boleznijo nalogo opraviti dvakrat – z desno in z levo roko(primeri v študiji so bili neodvisni).
+ 
+
+## Algoritem GMH-D}
+ 
+- ocene globine, ki jo zagotavlja kamera Azure Kinect in Google Mediapipe Hands,
+- algoritem se lahko uporablja za izločanje  značilk, ki omogočajo karakterizacijo FT pri različnih hitrostih in spremenjeni amplitudi.
+ 
+
+## FT je posnet}
+ 
+- 10s posnetki,
+- postenki se pridobivajo preko prilagojene implementacije GMH-D, razvite v okolju Unity(Unity Technologies, San Francisco, CA, ZDA),
+- video posnetki se obdelujejo v realnem času(30 frame per seconds), s programsko opremo za pridobivanje podatkov, ki v izhodnem formatu ustvari JSON datoteko, ki vsebuje poti 21 virtualnih sklepov roke(containing the trajectories of 21 virtual hand joints).
+ 
+
+## Offline data processing}
+ 
+1. računanje razdalje med sklepom konice kazalca (IFT) in sklepom konice palca (TT) ter jo nato segmentirajo, da so posamična gibanja FT identificirana,
+2. niz značilk, ki opisujejo povprečne lastnosti gibanja FT in njihovo vrednost skozi celotno nalogo, izraženih s pomočjo koeficienta variacije in spektralnih lastnosti,
+3. izbira optimalnega niza značilk za ločitev pacientov s PB od zdravih.
+ 
+
+## Data Pre-processing and Feature Extraction}
+ 
+- Vsi podatki so bili pred obdelavo značilk predhodno obdelani,
+- predobdelava je bila izvedena na 3D joint trajectories in vključevala postopek ponovnega vzorčenja in filtriranja,
+- vsi signali so bili ponovno vzorčeni pri 50 fps, da se odstranijo nenatančnosti v frekvenci in poveča gladkost signala,
+- a zmanjšanje visokofrekvenčnega šuma so uporabili low-pass, zero-phase Butterworth order 3 filter (10 Hz cut-off frequency),
+- dejansko je bila v analizi obdržana le relevantna frekvenčna pasova človeških gibanj.
+ 
+
+- Pridobljeni signal, ki verjetno približno posnema periodični sinusoidalni signal v zdravem stanju, se samodejno segmentira za identifikacijo posameznih gibanj FT. 
+- Segmentacija se izvede z iskanjem maksimalnih in minimalnih točk na signalu s pomočjo ustreznega praga. 
+- Točke so nato mapirane na trenutke ZAČETEK, ZAPRTJE(med tapkanjem s prsti) in KONEC posameznih gibanj. Nato se iz obeh posameznih segmentov in celotnega signala razdalje IFT-TT naredijo značilke.
+ 
+
+## Feature inspection, selection and automatic classification}
+ 
+- Izračunane značilke so bile najprej pregledane s pomočjo statističnega testiranja, da se ocenijo njihove porazdelitve v dveh skupinah,
+- normalnost značilk preučena z uporabo Shapiro-Wilkovega testa: vse značilke imele nenormalno porazdelitev, zagotavlja
+- izbrana neparametrična metoda, ki je vključevala Mann-Whitneyjev U-test za neodvisne vzorce, za identifikacijo značilk, ki so se različno porazdelile med skupinama PD in HC.
+- izračunana tudi Spearmanova korelacija za oceno stopnje linearne odvisnosti med uporabljenimi značilkami in oznako skupine (bodisi PD bodisi HC).
+ 
+
+Izbor  značilk je bil izveden s pomočjo algoritma Speeded Up Robust Features (SURF), pri čemer so bile izbrane le tiste  značilk, ki so imele pozitiven rezultat. Ta zmanjšana izbira značilk je bila uporabljena za klasifikacijo. \\
+Primerjava in ocena klasifikacijskih modelov se izvaja z uporabo postopka Leave-One-Subject-Out (LOSO), da se zmanjša morebitni vpliv prenaučenja modela med testiranjem.
+
+Implementirani štirje nadzorovani modeli v Pythonu:
+ 
+- Support Vector Machine (SVM), 
+- K-Nearest Neighbour (KNN), 
+- Random Forest (RF) in 
+- Extreme Gradient Boosting (XGBoost)
+ 
+
+Metrike ocenjevanja modelov: Accuracy, Precision, Recall in F1-score, so bile ocenjene na rezultatih, pridobljenih z vsemi modeli.
+
+Optimalni hiperparametri za klasifikacijske modele so bili določeni z uporabo k-kratne križne validacije (CV) (k = 3), v kombinaciji z metodo iskanja Grid search, pri čemer so bili uporabljeni le podatki za učenje, da bi dodatno zagotovili robustnost naučenih klasifikatorjev.
+
+## Rezultati}
+Vsi klasifikatorji dosegajo skupno natančnost (Accuracy) nad 90 \%, kar kaže na zelo dobro klasifikacijsko uspešnost. Ustrezno je F1-score več kot 90 \%. Torej so modeli robustni proti tako lažnim pozitivnim kot lažnim negativnim rezultatom, kar nakazuje, da so uporabljene značilke zelo napovedne za PB. Najbolje delujoči model je KNN (K=3, p=2 – torej Evklidska razdalja). Ta rezultat je verjetno povezan z dejstvom, da je algoritem SURF, uporabljen v fazi izbire značilk, temelji na konceptu najbližjih sosedov; zato lahko predpostavimo, da je dobljeni množica najboljših značilk izjemno natančna v kombinaciji s takim modelom.
+
+
+# An automatic evaluation method for Parkinson's dyskinesia using finger tapping video for small samples}
+
+Tako kot je delal Matjaž.
+
+# Characterizing Disease Progression in Parkinson’s Disease from Videos of the Finger Tapping Test}
+ 
+S pomočjo izračunanih značilk so preverjali hipotezo z dvema različnima pristopoma. Najprej preizkusili tri pristope klasifikacije za napovedovanje resnosti bolezni:
+ 
+- večrazredni klasifikacijski model(multiclass classification model), ki uporablja enoten nabor značilk za vse stopnje,
+- ordinalni binarni klasifikacijski pristop(an ordinal binary classification), ki odraža ordinalno naravo ocen resnosti bolezni
+- nov slojni binarni klasifikacijski pristop(a novel tiered binary classification), ki uporablja različne značilke gibanja glede na resnost bolezni.
+
+Drugič, izvedli smo statistične analize, da bi ugotovili, katere izračunane značilke se razlikujejo med zdravimi kontrolami in osebami s Parkinsonovo boleznijo (PD) ter kako se te  značilk spreminjajo glede na resnost bolezni.
+
+## Metode
+
+### Zajem podatkov
+
+- 24 zdravih oseb, 66 oseb s Parkinsonovo boleznijo,
+- 180 posnetkov in sicer 44 zdravih oseb ter 123 oseb s Parkinsonovo,
+- udeleženci s Parkinsonovo boleznijo (PD) z diagnozo, ki je bila postavljena pred manj kot 5 leti in potrjena s strani specialista,
+- sodelovali v dveh sejah zajema podatkov, seje zajema podatkov so bile izvedene v stanju brez zdravil,
+- videoposnetki pa so bili posneti z uporabo standardne video kamere, nameščene na stojalu,
+- Standardni RGB videoposnetki so bili posneti pri 30 fps z ločljivostjo 1920 x 1080 pikslov,
+- shranjeni na lokalnem strežniku in kasneje dostopani za obdelavo,
+- specialist stal pred udeležencem in dal jasna navodila o tem, kako naj izvede vsak nalogo,
+- ročno ocenjeno s pomočjo lestvice resnosti od 0 do 4, kjer 0 pomeni normalen gib, ocene od 1 do 4 pa označujejo rahlo, blago, zmerno in hudo resnost motoričnih simptomov.
+
+### Obdelava videoposnetkov
+
+- Videoposnetki bili ročno obdelani,
+- algoritm za oceno drže rok in sledenje brez markerjev, ki ga ponuja MediaPipe
+
+Z uporabo mejnih točk so izračunali kotno razdaljo med palcem in kazalcem tako, da so izračunali kot med dvema vektorjema, ki sta nastala z povezovanjem konic prstov z osnovo roke.
+
+![Slika prikazuje signale kotne premikljivosti, pridobljene po nizkopasovnem filtriranju surovih podatkov o kotni razdalji (omejitvena frekvenca 7Hz). Vrhovi in doline signalov so bili avtomatsko ocenjeni z uporabo standardnih algoritmov. Vrhovi in doline signalov ustrezajo največjemu odpiranju in zapiranju prstov.](slike/slika1.png){width=50%}
+
+### Računanje značilk(_Extraction of Kinematic Features_)
+
+- izračunali povprečje in koeficient variacije (CV) amplitude gibanja,
+- povprečje in CV hitrosti gibanja (amplituda gibanja / trajanje gibanja),
+- povprečje in CV hitrosti gibanja pri odpiranju (amplituda gibanja / trajanje gibanja pri odpiranju), 
+- povprečje in CV hitrosti gibanja pri zapiranju (amplituda gibanja / trajanje gibanja pri zapiranju), 
+- povprečje, CV in razpon trajanja cikla, 
+- hitrost gibanja (število pritiskov na čas) ter 
+- upad amplitude (povprečna amplituda v prvi polovici poskusa v primerjavi s povprečno amplitudo v drugi polovici poskusa).
+
+## Modeling
+
+1. Multiclass Classification
+
+V tem pristopu je usposobljen en sam večrazredni klasifikacijski model za razvrščanje vseh resnosti motoričnih simptomov na podlagi kinematičnih  značilk, pridobljenih iz videoposnetkov. To pomeni, da izhod modela predstavlja verjetnost, da bo videoposnetek testa pritiska s prsti dodeljen oceni resnosti 0, 1, 2 ali 3.
+
+2. Ordinal Binary Classification
+
+Ta pristop je prvotno uvedel Morinan et al.(_Computer vision quantification of whole-body Parkinsonian bradykinesia using a large multi-site population_). V tem pristopu je usposobljenih več binarnih klasifikacijskih modelov za prepoznavanje resnosti motoričnih simptomov na podlagi kinematičnih  značilk, pridobljenih iz videoposnetkov. 
+
+Skupaj so trije binarni klasifikacijski modeli. Prvi model razvršča videoposnetke z oceno 0 proti ocenam 1, 2 ali 3; drugi model razvršča videoposnetke z ocenama 0 ali 1 proti ocenama 2 ali 3; in tretji model razvršča videoposnetke z ocenami 0, 1 ali 2 proti oceni 3.
+
+3. Tiered Binary Classification
+
+V tem pristopu je usposobljenih več binarnih klasifikacijskih modelov. 
+
+Skupaj so trije binarni klasifikacijski modeli, pri čemer je vsak model zasnovan za prepoznavanje različnih stopenj resnosti bolezni. Prvi model razvršča zdrave kontrole od oseb s Parkinsonovo boleznijo (PD). Če prvi model pokaže, da videoposnetek pripada osebi s PD, drugi model razvršča ocene 1 proti ocenam 2 ali 3. Na koncu, če drugi model pokaže, da bi moral videoposnetek prejeti oceno višjo od 1, tretji model razvršča ocene 2 proti oceni 3.
+
+- modela logistične regresije,
+- vsi modeli so vključevali kinematične značilke, pridobljene iz videoposnetkov, ki so bile opisane zgoraj, skupaj z udeleženčevo starostjo in spolom kot značilnostmi za klasifikacijo,
+- značilke normalizirane,
+- podatki so bili razdeljeni na učne(70 \%) in testne(30\%),
+- petkratna križna validacija, pri čemer uporabljeni le učni podatki,
+- modeli so bili primerjani na podlagi površine pod krivuljo (AUC) krivulje ponovitve-preciznosti(_Recall-Precision curve_) in F1.
+
+Za zmanjšanje tveganje za prekomerno prilagoditev (overfitting), smo uporabili metodo rekurzivne odstranitve  značilk (RFE) - sistematično odstrani najmanj vplivne  značilk, tiste z minimalnim vplivom na koeficiente modela. Po odstranitvi ne-vplivne znčilke je bil model ponovno usposobljen z preostalimi značilkami. Ta iterativni postopek se ponovi, dokler nadaljnje zmanjšanje  značilk ne prinese izboljšanja v zmogljivosti modela.
+
+Ker so naši podatki neuravnoteženi, smo uporabili algoritem Synthetic Minority Oversampling Technique (SMOTE) za povečanje manj zastopanih razredov in zmanjšanje prekomerno zastopanih razredov v naših podatkih, da bi ustvarili podatkovne sklope z uravnoteženimi razredi.
+
+Na koncu smo izvedli statistične teste, da bi ugotovili, ali so se kinematične  značilk gibanja statistično pomembno razlikovale med ocenami, dodeljenimi s strani specialistov (0, 1, 2, 3 in 4). Razlike med skupinami smo ocenili z uporabo ANOVA za podatke, ki so normalno porazdeljeni, in Welch ANOVA za podatke, ki niso normalno porazdeljeni. Za oceno normalnosti naših podatkov smo uporabili enovzorečni Kolmogorov-Smirnov test. Za skupine, ki so pokazale statistično pomembne razlike, smo izvedli post-hoc test Tukey’s Honest Significant Difference z Bonferroni korekcijo, da bi ugotovili, katere skupine se med seboj statistično pomembno razlikujejo. P-vrednost < 0,05 smo šteli za statistično pomembno razliko.
+
+## Rezultati
+
+### Multiclass Classification
+
+Postopek izbire značilk je identificiral šest ključnih  značilk, ki so bile ključne za klasifikacijo
+
+- Povprečno amplitudo, 
+- Povprečno hitrost, 
+- Povprečno hitrost odpiranja, 
+- Povprečno hitrost zapiranja, 
+- Povprečno trajanje cikla in 
+- Koeficient variacije trajanja cikla. 
+
+Z uporabo teh šestih značilk je model izkazal povprečno AUC krivulje ponovitve-preciznosti 0,39 in povprečno F1-oceno 0,42. Natančnost modela je bila 30\% za oceno 0, 67\% za oceno 1, 21\% za oceno 2 in 59\% za oceno 3.
+
+### Ordinal Binary Classification
+
+**i) Ocena [0] proti ocenam [1, 2, 3]:**
+
+Postopek izbire značilk je identificiral tri ključne značilke, ki so bile kritične za klasifikacijo
+
+- Povprečno hitrost, 
+- Povprečno hitrost odpiranja in 
+- Povprečno hitrost zapiranja. 
+
+Z uporabo teh treh značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,94 in F1-oceno 0,87. Natančnost modela je bila 69\% za oceno 0 in 86\% za ocene od 1 do 3.
+
+**ii) Ocena [0, 1] proti ocenama [2, 3]:**
+
+Postopek izbire značilk je identificiral pet ključnih  značilk, ki so bile kritične za klasifikacijo
+
+- Povprečna amplituda, 
+- Povprečna hitrost odpiranja, 
+- CV hitrost zapiranja, 
+- Povprečno trajanje cikla in 
+- CV trajanja cikla. 
+
+Z uporabo teh petih značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,85 in F1-oceno 0,84. Natančnost modela je bila 60\% za oceno 1 ali 2 in 89\% za oceno 2 ali 3.
+
+**iii) Ocena [0, 1] proti ocenama [2, 3]:**
+
+Postopek izbire značilk je identificiral pet ključnih  značilk, ki so bile kritične za klasifikacijo
+
+- Povprečna amplituda, 
+- Povprečna hitrost odpiranja, 
+- CV hitrost zapiranja, 
+- Povprečno trajanje cikla in 
+- CV trajanja cikla. 
+
+Z uporabo teh petih značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,85 in F1-oceno 0,84. Natančnost modela je bila 60\% za oceno 1 ali 2 in 89\% za oceno 2 ali 3.
+
+### Tiered Binary Classification
+
+**i) Zdravi proti bolnim**
+
+Postopek izbire značilk je identificiral pet ključnih  značilk, ki so bile kritične za klasifikacijo
+
+- Povprečna hitrost, 
+- Povprečna hitrost zapiranja, 
+- Povprečno trajanje cikla, 
+- Amplitudni upad in 
+- starost. 
+
+Z uporabo teh petih značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,97 in F1-oceno 0,91. Natančnost modela je bila 85\% za zdrave kontrolne osebe (HC) in 88\% za osebe s Parkinsonovo boleznijo (PD).
+
+**ii) Ocena [1] proti ocenama [2, 3]:**
+
+Postopek izbire  značilk je identificiral šest ključnih  značilk, ki so bile kritične za klasifikacijo
+
+- Povprečna amplituda, 
+- Povprečna hitrost, 
+- Povprečna hitrost odpiranja, 
+- CV hitrost zapiranja, 
+- Amplitudni upad in 
+- CV trajanja cikla. 
+
+Z uporabo teh šestih značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,97 in F1-oceno 0,88. Natančnost modela je bila 100\% za oceno 1 in 77\% za ocene 2 in 3.
+
+**iii) Ocena [2] proti oceni [3]:**
+
+Postopek izbire  značilk je identificiral štiri ključne  značilk, ki so bile kritične za klasifikacijo
+- CV hitrost odpiranja, 
+- Razpon trajanja cikla, 
+- Amplitudni upad in 
+- starost. 
+
+Z uporabo teh štirih značilk je model dosegel AUC krivulje ponovitve-preciznosti 0,89 in F1-oceno 0,81. Natančnost modela je bila 84\% za oceno 2 in 80\% za oceno 3.
+
+## Ugotovitve
+
+Tako kot prejšnje študije, tudi naša metoda kvantificira tradicionalne kinematične značilnosti, kot so amplituda gibanja(movement amplitude), hitrost(speed) in upad amplitude(amplitude decay), ki linearno variirajo s težo motoričnih simptomov(which vary linearly with motor symptom severity. Poleg tega smo kvantificirali netradicionalne kinematične značilnosti, vključno s trajanjem cikla(cycle duration), hitrostjo odpiranja in zapiranja(opening and closing speeds) ter variabilnost(variability measures).
+
+Drugi prispevek te študije vključuje uvedbo nove metode razvrščanja v več stopnjah. Metoda razvrščanja v več stopnjah odraža klinično prakso ocenjevanja pacientov, kjer se zdravniki osredotočajo na različne motorične vidike za dodeljevanje višjih ocen. Poleg tega je naš pristop pokazal boljšo natančnost pri napovedovanju resnosti bolezni in ločevanju med različnimi stopnjami resnosti v primerjavi z obstoječimi metodami.
+
+
+
