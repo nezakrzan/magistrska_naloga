@@ -252,5 +252,101 @@ Tako kot prejšnje študije, tudi naša metoda kvantificira tradicionalne kinema
 
 Drugi prispevek te študije vključuje uvedbo nove metode razvrščanja v več stopnjah. Metoda razvrščanja v več stopnjah odraža klinično prakso ocenjevanja pacientov, kjer se zdravniki osredotočajo na različne motorične vidike za dodeljevanje višjih ocen. Poleg tega je naš pristop pokazal boljšo natančnost pri napovedovanju resnosti bolezni in ločevanju med različnimi stopnjami resnosti v primerjavi z obstoječimi metodami.
 
+# Detection of Parkinson disease using multiclass machine learning approach
+
+## Podatki
+
+Nabor podatkov zajema 195 glasovnih posnetkov od 147 pacientov s Parkinsonovo boleznijo in 48 zdravih kontrol.
+
+Nabor podatkov obsega 195 glasovnih posnetkov, pri čemer je bil vsak posnet za 36 sekund v zvočno izolirani kabini. Posnetki so bili pridobljeni s pomočjo umerjenega mikrofona, nameščenega 8 cm od ust posameznika. Vsak posnetek je opisan s 24 biomedicinskimi glasovnimi meritvami.
+
+Starost udeležencev s Parkinsonovo boleznijo je bila med 46 in 85 leti (povprečje: 65,8, standardni odklon: 9,8), diagnoze pa so trajale od 0 do 28 let. 
+
+Posnetki so bili pretvorjeni v strukturirano obliko CSV, ki zajema različne vokalne značilnosti, kot so višina tona, jitter, shimmer in razmerje med harmoniki in šumom.
+
+## Metodologija
+
+### Preobdelava podatkov
+
+Za obravnavo morebitnih neravnovesij razredov se uporablja tehnika sintetičnega nadvzorčenja manjšinskih primerov (SMOTE, _Synthetic Minority Over-sampling Technique_), ki poveča število primerov manjšinskega razreda in zagotovi uravnoteženo porazdelitev nabora podatkov.
+
+Manjkajoče vrednosti lahko pomembno vplivajo na delovanje modela, če niso pravilno obravnavane. Za to smo uporabili kombinacijo strategij dopolnjevanja vrednosti, ki temelji na naravi in porazdelitvi manjkajočih podatkov. Za numerične značilke smo uporabili dopolnjevanje z aritmetično sredino, pri čemer smo manjkajoče vrednosti nadomestili z povprečno vrednostjo ustrezne značilnosti - nadomeščanje z aritmetično sredino pomaga ohraniti splošno porazdelitev podatkov. Nasprotno pa smo za kategorialne značilke uporabili dopolnjevanje z modusom, kjer smo manjkajoče vrednosti nadomestili z najpogostejšo kategorijo - ohraniti celovitost kategorialnih spremenljivk.
+
+Po postopku dopolnjevanja smo opazili, da nabor podatkov kaže neravnovesje, saj vsebuje 147 primerov Parkinsonove bolezni (PB) in 48 zdravih kontrol (ZK), kar predstavlja 75 % in 25 % nabora podatkov.
+
+Nabor podatkov razdelili v razmerju 80 % za usposabljanje in 20 % za testiranje in validacijo.
+
+Poleg tega smo vsako značilko posebej standardizirali z uporabo StandardScaler - ta korak zagotavlja, da vse značilnosti prispevajo enako k modelu in prepreči, da bi značilke z večjimi magnitudami prevladovale pri učenju modela.
+
+### Izbira značilk
+
+Uporabili smo rekurzivno eliminacijo značilnosti (RFE, _Recursive Feature Elimination_) za prepoznavanje najpomembnejših vokalnih značilnosti za klasifikacijo Parkinsonove bolezni. RFE iterativno odstranjuje najmanj pomembne značilnosti na podlagi uspešnosti modela SV), na koncu pa izbere podmnožico značilnosti, ki najbolj prispevajo k nalogi klasifikacije.
+
+SelectKBest - algoritem je imel ključno vlogo pri optimizaciji našega nabora podatkov z natančnim izborom osmih najbolj informativnih značilk. Specifične značilke, ki jih je izbral SelectKBest, so bile določene na podlagi njihove posamezne prisotnosti pri napovedovanju naloge. Značilke, ki so pokazale najvišje _k-scor-je_, so bile prednostno vključene v končni nabor podatkov, medtem ko so bile manj informativne značilke izključene. 
+
+Izključitev določenih značilk je motila občutljivo ravnovesje in sinergijo med njimi, kar je povzročilo poslabšanje uspešnosti modela. Zavedajoč se tega ključnega spoznanja smo sprejeli premišljeno in informirano odločitev, da se izognemo izbiri značilk in namesto tega uporabimo vse razpoložljive značilke v naših modelih.
+
+### Razvoj modela
+
+Algoritem _RandomizedSearchCV_ sistematično optimizira hiperparametre izbranih modelov:
+
+- K-najbližjih sosedov (KNN), 
+- podpornih vektorskih modelov (SVM),
+- Kernel Support Vector Machine(KSVM),
+- naključni gozd (RF),
+- odločilno drevo (DT) in 
+- povratne nevronske mreže (FNN). 
+
+
+Razvili smo dva glavna modela: model K-najbližjih sosedov (KNN) in povratno nevronsko mrežo (FNN). Arhitekturo in parametre mreže FNN smo optimizirali z uporabo algoritma RandomizedSearchCV.
+
+### Prilagajanje hiperparametrov
+
+Za oba modela smo izvedli prilagajanje hiperparametrov z uporabo algoritma RandomizedSearchCV, ki naključno vzorči širok spekter kombinacij parametrov, da bi našel optimalne nastavitve, ki maksimirajo delovanje modela.
+
+Evalvacijske metrike, kot so natančnost, preciznost, priklic in F1-ocena, se dosledno uporabljajo za ocenjevanje uspešnosti posameznih modelov. Z gradnjo ansambla, ki združuje napovedi več modelov, metoda ansambla izkorišča prednosti vsakega sestavnega modela za izboljšanje celotne natančnosti klasifikacije PB, kar predstavlja obetaven pristop za učinkovitejšo diagnozo in zdravljenje pacientov.
+
+## Rezultati
+
+### No RandomizedSearch and feature selection 
+
+Kernel Support Vector Machine (KSVM) doseže natančnost 81,61 %, kar kaže na njegovo splošno pravilnost pri napovedovanju primerov PB. Z vrednostjo 79,81 % za priklic (recall) KSVM izkazuje učinkovitost pri prepoznavanju velikega deleža dejanskih pozitivnih primerov. Poleg tega njegova visoka natančnost 97,16 % pomeni nizko stopnjo lažno pozitivnih primerov, kar izkazuje njegovo natančnost pri pozitivnih napovedih. F1 točka, ki je uravnotežena meritev natančnosti in priklica, znaša 88,27 %, kar poudarja uravnoteženo delovanje modela.
+
+Model Random Forest (RF) doseže najvišjo natančnost med vsemi modeli z impresivnimi 86,89 %, kar kaže na njegovo sposobnost pravilnega razvrščanja tako primerov PB kot tudi zdravih oseb. Izstopa tudi v priklicu s 89,11 %, kar kaže na njegovo sposobnost zajemanja velikega deleža dejanskih primerov PB. Vendar pa F1 točka 84,18 % kaže na rahlo ravnotežje med natančnostjo in priklicem.
+
+Model Decision Tree (DT) prikazuje uravnoteženo uspešnost v vseh metrikah, saj doseže natančnost 77,08 %. DT kaže priklic 78,1 %, kar poudarja njegovo sposobnost prepoznavanja pomembnega deleža dejanskih primerov PB, medtem ko natančnost 91,11 % kaže na visoko natančnost pri pozitivnih napovedih. F1 točka 85,08 % poudarja uravnoteženost med natančnostjo in priklicem.
+
+Model K-Nearest Neighbor (KNN) izkazuje dobro natančnost 82,21 %, s priklicem 78,09 %, kar kaže na njegovo učinkovitost pri zajemanju pravih pozitivnih primerov. Poleg tega se KNN ponaša z visoko natančnostjo 97,45 %, kar pomeni nizko stopnjo lažno pozitivnih primerov. F1 točka 87,17 % potrjuje uravnoteženo delovanje modela.
+
+Končno, Feed-forward Neural Network (FNN) doseže najvišjo natančnost med modeli s 88,19 %, kar odraža splošno pravilnost napovedi. S priklicem 87,25 % FNN izstopa pri prepoznavanju dejanskih primerov PB. Njegova natančnost 98,12 % pomeni zelo nizko stopnjo lažno pozitivnih napovedi, kar prinaša visoko natančnost pri pozitivnih napovedih. F1 točka 92,13 % potrjuje uravnoteženo in robustno delovanje modela v vseh metrikah, kar ga postavlja kot obetaven model za odkrivanje PB.
+
+### RandomizedSearch in feature selection
+
+Kernelska podporna vektorska naprava (KSVM) prikazuje solidno zmogljivost z natančnostjo 85,91 %, kar nakazuje na njeno splošno pravilnost pri napovedovanju primerov PB. Izstopa z poklicnim zaznavanjem 87,91 %, kar pomeni, da je sposobna zajeti visok odstotek resničnih pozitivnih primerov. Natančnost 93,55 % kaže nizko stopnjo lažno pozitivnih napovedi, kar prispeva k natančnosti modela pri pozitivnih napovedih. Poleg tega F1-ocena 90,17 % poudarja uravnotežen kompromis med natančnostjo in poklicnim zaznavanjem, kar prikazuje robustno zmogljivost modela.
+
+Model Random Forest (RF) presega druge modele po natančnosti z impresivnimi 89,61 %, kar poudarja njegovo učinkovitost pri pravilnem razvrščanju primerov PB in ne-PB. Izstopa z poklicnim zaznavanjem 92,18 %, kar nakazuje na njegovo sposobnost zajeti visok odstotek resničnih pozitivnih primerov. Poleg tega natančnost 96,07 % pomeni nizko stopnjo lažno pozitivnih napovedi, kar prispeva k natančnosti modela pri pozitivnih napovedih. F1-ocena 93,72 % nakazuje harmonično ravnovesje med natančnostjo in poklicnim zaznavanjem.
+
+Model drevesa odločitev (DT) prikazuje uravnotežene metrike zmogljivosti z natančnostjo 86,12 %. Izkazuje poklicno zaznavanje 86,11 %, kar pomeni njegovo učinkovitost pri prepoznavanju znatnega dela dejanskih primerov PB. Natančnost 96,22 % poudarja njegovo pravilnost pri pozitivnih napovedih, kar vodi v uravnoteženo F1-oceno 91,17 %.
+
+Model K-Nearest Neighbor (KNN) prikazuje pohvalno natančnost 89,19 %, z poklicnim zaznavanjem 89,12 %, kar pomeni njegovo učinkovitost pri zajemanju resničnih pozitivnih primerov. Natančnost 98,16 % pomeni nizko stopnjo lažno pozitivnih napovedi. F1-ocena 93,18 % poudarja uravnoteženo zmogljivost glede na natančnost in poklicno zaznavanje.
+
+Zadnji model, Feed-forward Neural Network (FNN), prikazuje najvišjo natančnost med modeli z 92,12 %, kar odraža splošno pravilnost napovedi. Z poklicnim zaznavanjem 94,17 % FNN izstopa pri prepoznavanju dejanskih primerov PB. Natančnost 96,98 % pomeni nizko stopnjo lažno pozitivnih napovedi, kar prispeva k visoki natančnosti pri pozitivnih napovedih. F1-ocena 96,11 % dokazuje uravnoteženo in robustno zmogljivost modela na več metričnih področjih, kar FNN postavlja kot obetaven model za odkrivanje Parkinsonove bolezni.
+
+### RandomizedSearch
+
+Kernelska podporna vektorska naprava (KSVM) doseže izjemno natančnost 95,89 %, kar prikazuje njeno splošno pravilnost pri napovedovanju primerov PB. Z poklicnim zaznavanjem 96,88 % KSVM izstopa pri zajemanju visokega odstotka resničnih pozitivnih primerov, medtem ko natančnost 98,71 % pomeni visoko natančnost pri pozitivnih napovedih. F1-ocena 97,62 % poudarja harmonično ravnovesje med natančnostjo in poklicnim zaznavanjem, kar izpostavlja robustnost modela.
+
+Model Random Forest (RF) doseže pohvalno natančnost 93,12 %, kar kaže na njegovo sposobnost pravilnega razvrščanja primerov PB in ne-PB. Izstopa z poklicnim zaznavanjem 93,15 %, kar kaže, da je zmožen zajeti visok odstotek resničnih pozitivnih primerov. Poleg tega natančnost 98,46 % pomeni nizko stopnjo lažno pozitivnih napovedi, kar prispeva k natančnosti modela pri pozitivnih napovedih. F1-ocena 96,15 % nakazuje harmonično ravnovesje med natančnostjo in poklicnim zaznavanjem, kar poudarja učinkovitost modela.
+
+Model drevesa odločitev (DT) prikazuje solidne zmogljivosti z natančnostjo 91,15 %. Izkazuje poklicno zaznavanje 93,33 %, kar pomeni njegovo učinkovitost pri prepoznavanju znatnega dela dejanskih primerov PB. Natančnost 96,56 % poudarja pravilnost modela pri pozitivnih napovedih, kar vodi do uravnotežene F1-ocene 95,11 %.
+
+Model K-Nearest Neighbor (KNN) doseže pohvalno natančnost 90,11 %, z poklicnim zaznavanjem 89,21 %, kar pomeni njegovo učinkovitost pri zajemanju resničnih pozitivnih primerov. Natančnost 98,16 % pomeni nizko stopnjo lažno pozitivnih napovedi, kar prispeva k natančnosti pri pozitivnih napovedih. F1-ocena 93,56 % poudarja uravnoteženo zmogljivost modela na metričnih področjih natančnosti in poklicnega zaznavanja.
+
+Zadnji model, Feed-forward Neural Network (FNN), doseže izjemno natančnost 99,11 %, kar odraža splošno pravilnost pri napovedih. Z poklicnim zaznavanjem 98,78 % FNN izstopa pri prepoznavanju dejanskih primerov PB. Natančnost 99,96 % pomeni nizko stopnjo lažno pozitivnih napovedi, kar prispeva k visoki natančnosti pri pozitivnih napovedih. F1-ocena 99,23 % dokazuje uravnoteženo in robustno zmogljivost modela na več metričnih področjih, zaradi česar je FNN zelo obetaven model za odkrivanje Parkinsonove bolezni.
+
+### Drugi avtorji
+
+John Michael Templeton se je osredotočil na klasifikacijo z drevesom odločitev na podlagi podatkov senzorjev in dosegel natančnost 85,72%. Gunjan Pahuja je raziskoval učinkovitost MLP, SVM in KNN, pri čemer je dosegel impresivno natančnost 95,89%. Aditi Govindu je uporabila SVM, RF in KNN, dosegle pa so natančnost 91,83%. Farhad Abedinzadeh Torghabeh je preučil AdaBoost in KNN, pri čemer je dosegel visoko natančnost 98,62%. Khaled M je uporabil tehniki SMOTE in PCA, kar je privedlo do natančnosti 97,11%. Maitane Martinez je izvedla SVM in MLP, pri čemer je dosegla natančnost 84,41%. Ahmed M je osredotočil svojo raziskavo na SVM in dosegel natančnost 92,31%. Bruno Fonseca je raziskoval SVM, RF in KNN z natančnostjo 89,56%. Arti Rana je raziskovala umetne nevronske mreže (ANN) in dosegla natančnost 96,71%. Poleg tega je predlagani model, ki vključuje RandomizedSearchCV in FNN, pokazal najboljše rezultate z natančnostjo 99,11%.
+
 
 
