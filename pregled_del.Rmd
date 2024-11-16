@@ -114,7 +114,7 @@ Drugič, izvedli smo statistične analize, da bi ugotovili, katere izračunane z
 
 Z uporabo mejnih točk so izračunali kotno razdaljo med palcem in kazalcem tako, da so izračunali kot med dvema vektorjema, ki sta nastala z povezovanjem konic prstov z osnovo roke.
 
-![Slika prikazuje signale kotne premikljivosti, pridobljene po nizkopasovnem filtriranju surovih podatkov o kotni razdalji (omejitvena frekvenca 7Hz). Vrhovi in doline signalov so bili avtomatsko ocenjeni z uporabo standardnih algoritmov. Vrhovi in doline signalov ustrezajo največjemu odpiranju in zapiranju prstov.](slike/slika1.png){width=50% 
+![Slika prikazuje signale kotne premikljivosti, pridobljene po nizkopasovnem filtriranju surovih podatkov o kotni razdalji (omejitvena frekvenca 7Hz). Vrhovi in doline signalov so bili avtomatsko ocenjeni z uporabo standardnih algoritmov. Vrhovi in doline signalov ustrezajo največjemu odpiranju in zapiranju prstov.](slike/slika1.png){width=50%} 
 
 ### Računanje značilk(_Extraction of Kinematic Features_)
 
@@ -400,5 +400,73 @@ Z uporabo našega postopka navzkrižne validacije je model dosegel odlično uči
 Accurancy na testnih podatkih je bila 0.69, precision 0.73, priklic (recall) 0.76, in AUROC na testu 0.76. Ta model je imel hitrost učenja 7.2e-4, moč regularizacije 0.1, in je tekel 400 epoch.
 
 Naši rezultati kažejo, da se lahko nevronska mreža globokega učenja neposredno uporabi na videoposnetkih tapkanja s prsti, posnetih s pametnim telefonom, brez vnaprej določenih pravil ali meril, za razlikovanje oseb s Parkinsonovo boleznijo od kontrolnih udeležencev.
+
+# Clinically Informed Automated Assessment of Finger Tapping Videos in Parkinson’s Disease
+
+Na začetku je 3D drža roke izvlečena z uporabo najnovejše različice MediaPipe, posodobljene februarja 2023, za generiranje časovnih vrst podatkov o ključnih položajih sklepov.
+
+Surovi podatki časovnih vrst ključnih položajev sklepov so predstavljeni kot $K = \{Kj(t)\}$, kjer $j$ označuje $j$-to ključno točko ($j = 1, 2, \dots, 20)$, $t$ pa pomeni indeks slikovnega okvirja (za $t = 1, 2, \dots, L$).
+
+Izračunali smo časovne vrste razdalje med palcem in kazalcem, označene kot $I$ z dolžino $L$, kar ustreza razdalji med točkama $K_4$ in $K_8$ pri nalogi tapkanja s prsti. V drugi fazi smo izločili 15 specifičnih značilnosti za vsak video. Te značilnosti zajemajo dva demografska elementa in 13 kinematičnih značilnosti, ki so bile pridobljene s procesiranjem signalov časovnih vrst podatkov. Te kinematične značilnosti so skladne s smernicami navodil UPDRS.
+
+![Izračunane značilke.](slike/slika2.png){width=50%} 
+ 
+## Time Series Preprocessing
+
+Za vhodne časovne vrste $I$, $p = [p_1, p_2, \dots, p_n, \dots, p_N]$ predstavlja vrhove, kjer je $p_n$ $n$-ti vrh, $A_n$ pa amplituda pripadajočega vrha $p_n$. Glede na model roke, $K_j = (k_{x,j}, k_{y,j}, k_{z,j})$ predstavlja položaj $j$-te ključne točke. Velikost dlani v času $t$ je ocenjena z uporabo $K_0$ in $K_9$ kot:
+
+$$
+Palm_t = \sqrt{(k_{x,0} - k_{x,9})^2 + (k_{y,0}- k_{y,9})^2 + (k_{z,0}- k_{z,9})^2} \lvert t.
+$$
+
+Nato se izvede normalizacija, da se Palmt prilagodi za primerjavo med posamezniki, kot je prikazano spodaj:
+
+$$
+I_{norm} = \frac{I}{Palm_t}
+$$
+
+
+Nato smo uporabili empirično razgradnjo načina(_Empirical Mode Decomposition_ - EMD), da smo $I_norm$ razgradili v serijo intrinzičnih modalnih funkcij(_Intrinsic Mode Functions_ - IMF) in preostalo komponento, kot je prikazano na spodnji sliki. Vsaka IMF zajema poseben nihajni način, za katerega so značilne spremenljive frekvence in amplitude. V našem pristopu smo izbrali prve tri IMF kot glavne komponente signala, s čimer smo dosegli ravnotežje med poenostavitvijo podatkov in ohranjanjem ključnih informacij. Vendar pa lahko signal tudi po razgradnji z EMD vsebuje šum ali nezaželene artefakte, kot so tisti, ki izhajajo iz tresenja prstov. Da bi to odpravili, smo uporabili postopek odstranjevanja šuma in glajenja, da smo odpravili takšne motnje.
+
+Po predobdelavi in čiščenju časovnih vrst podatkov je bil naslednji korak zaznavanje vrhov ali specifičnih dogodkov v signalu. Za iskanje lokalnih maksimumov ali minimumov, ki so služili kot ključne točke v podatkih, smo uporabili modul za zaznavanje vrhov.
+
+![Izračunane značilke.](slike/slika3.png){width=50%} 
+
+## Feature Extraction
+
+V naš model smo vključili dva demografska dejavnika: starost in spol. Ta vključitev temelji na opažanju, da lahko starejši posamezniki kažejo znake bradikinezije, povezane s staranjem, neodvisno od Parkinsonove bolezni (PB), ter da lahko tako starost kot spol vplivata na napredovanje PB. 
+
+Na podlagi podatkov časovnih vrst smo izločili 5 značilnosti, povezanih z amplitudo. Izločili smo 5 značilnosti, povezanih z hitrostjo. 
+
+Pri Parkinsonovi bolezni so "zaustavitve ali zadržki" značilni za kratke trenutke zamrznitve ali zakasnitev sposobnosti začetka gibov, ki so pogosto opaženi med ponavljajočimi se dejanji.  Skozi obsežne razprave, da bi pojasnili "zaustavitve" in "zadržke" v naši študiji, smo definirali "zaustavitve" kot trenutke popolne zaustavitve, ki jih zaznamuje ničelna amplituda. Po drugi strani pa je "zadržek" bil opredeljen kot opazno zmanjšanje hitrosti, ki je registrirala vrednosti nad ničlo, vendar precej pod vnaprej določenim empiričnim pragom.
+
+## Machine Learning
+
+Izbrali smo pristop odločilnega drevesa kot glavno metodo klasifikacije, da bi izboljšali razložljivost in kvantifikacijo ocen, prilagojenih našemu specifičnemu nalogu.
+
+Vendar pa smo ugotovili visoko korelacijo le med frekvenco in hitrostjo tapkanja, zato smo se odločili, da ohranimo vseh 15 prvotnih značilnosti v naši analizi. Ta pristop smo izbrali, da zagotovimo ohranitev edinstvenega prispevka vsake značilnosti.
+
+## Eksperiment
+
+- Laboratorij: ločljivost 3840 x 2160 px in hitrost sličic 15/s,
+- Ambulanta: ločljivost 1920 x 1080 px in hitrost sličic 60 fps,
+- Skupaj 65 pacientov, diagnosticiranih s Parkinsonovo boleznijo,
+- 75 videoposnetkov od 50 pacientov ocenjenih kot primernih za oceno učinkovitosti predlagane metode,
+- 60 videoposnetkov dodeljenih za učni niz in 15 videoposnetkov za testni niz,
+- accuracy, precision, recall, in F1-score.
+
+Najprej je bila izvedena glavna naloga klasifikacije na podlagi značilnosti tapkanja prstov z uporabo kliničnih ocen. Predlagana metoda je dosegla visoko natančnost, z natančnostjo (Accuracy(t1)) 80 \% in natančnostjo (Accuracy(t2)) 93,3 \%. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
