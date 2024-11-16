@@ -11,7 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Objective Assessment of the Finger Tapping Task in Parkinson’s Disease and Control Subjects using Azure Kinect and Machine Learning
 
- 
 - sistem za objektivno karaketrizacijo Finger Tapping-a(FT) iz RGB-globinskih video posnetkov,
 - inovativni pristop za 3D-sledenje rok (tj. algoritem GMH-D in metode strojnega učenja),
 - 60(od tega 27 žensk) zdravih primerov(kontrolna skupina) in 35 pacientov(od tega 15 žensk) s Parkinsonovo boleznijo, skupno 95,
@@ -19,27 +18,27 @@ knitr::opts_chunk$set(echo = TRUE)
 - kontrolna skupina je nalogo izvedla samo z dominanto roko; nasprotno pa so morali pcienti s Parkinsonovo boleznijo nalogo opraviti dvakrat – z desno in z levo roko(primeri v študiji so bili neodvisni).
  
 
-## Algoritem GMH-D}
+## Algoritem GMH-D 
  
 - ocene globine, ki jo zagotavlja kamera Azure Kinect in Google Mediapipe Hands,
 - algoritem se lahko uporablja za izločanje  značilk, ki omogočajo karakterizacijo FT pri različnih hitrostih in spremenjeni amplitudi.
  
 
-## FT je posnet}
+## FT je posnet 
  
 - 10s posnetki,
 - postenki se pridobivajo preko prilagojene implementacije GMH-D, razvite v okolju Unity(Unity Technologies, San Francisco, CA, ZDA),
 - video posnetki se obdelujejo v realnem času(30 frame per seconds), s programsko opremo za pridobivanje podatkov, ki v izhodnem formatu ustvari JSON datoteko, ki vsebuje poti 21 virtualnih sklepov roke(containing the trajectories of 21 virtual hand joints).
  
 
-## Offline data processing}
+## Offline data processing 
  
 1. računanje razdalje med sklepom konice kazalca (IFT) in sklepom konice palca (TT) ter jo nato segmentirajo, da so posamična gibanja FT identificirana,
 2. niz značilk, ki opisujejo povprečne lastnosti gibanja FT in njihovo vrednost skozi celotno nalogo, izraženih s pomočjo koeficienta variacije in spektralnih lastnosti,
 3. izbira optimalnega niza značilk za ločitev pacientov s PB od zdravih.
  
 
-## Data Pre-processing and Feature Extraction}
+## Data Pre-processing and Feature Extraction 
  
 - Vsi podatki so bili pred obdelavo značilk predhodno obdelani,
 - predobdelava je bila izvedena na 3D joint trajectories in vključevala postopek ponovnega vzorčenja in filtriranja,
@@ -53,7 +52,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - Točke so nato mapirane na trenutke ZAČETEK, ZAPRTJE(med tapkanjem s prsti) in KONEC posameznih gibanj. Nato se iz obeh posameznih segmentov in celotnega signala razdalje IFT-TT naredijo značilke.
  
 
-## Feature inspection, selection and automatic classification}
+## Feature inspection, selection and automatic classification 
  
 - Izračunane značilke so bile najprej pregledane s pomočjo statističnega testiranja, da se ocenijo njihove porazdelitve v dveh skupinah,
 - normalnost značilk preučena z uporabo Shapiro-Wilkovega testa: vse značilke imele nenormalno porazdelitev, zagotavlja
@@ -76,15 +75,15 @@ Metrike ocenjevanja modelov: Accuracy, Precision, Recall in F1-score, so bile oc
 
 Optimalni hiperparametri za klasifikacijske modele so bili določeni z uporabo k-kratne križne validacije (CV) (k = 3), v kombinaciji z metodo iskanja Grid search, pri čemer so bili uporabljeni le podatki za učenje, da bi dodatno zagotovili robustnost naučenih klasifikatorjev.
 
-## Rezultati}
+## Rezultati 
 Vsi klasifikatorji dosegajo skupno natančnost (Accuracy) nad 90 \%, kar kaže na zelo dobro klasifikacijsko uspešnost. Ustrezno je F1-score več kot 90 \%. Torej so modeli robustni proti tako lažnim pozitivnim kot lažnim negativnim rezultatom, kar nakazuje, da so uporabljene značilke zelo napovedne za PB. Najbolje delujoči model je KNN (K=3, p=2 – torej Evklidska razdalja). Ta rezultat je verjetno povezan z dejstvom, da je algoritem SURF, uporabljen v fazi izbire značilk, temelji na konceptu najbližjih sosedov; zato lahko predpostavimo, da je dobljeni množica najboljših značilk izjemno natančna v kombinaciji s takim modelom.
 
 
-# An automatic evaluation method for Parkinson's dyskinesia using finger tapping video for small samples}
+# An automatic evaluation method for Parkinson's dyskinesia using finger tapping video for small samples 
 
 Tako kot je delal Matjaž.
 
-# Characterizing Disease Progression in Parkinson’s Disease from Videos of the Finger Tapping Test}
+# Characterizing Disease Progression in Parkinson’s Disease from Videos of the Finger Tapping Test 
  
 S pomočjo izračunanih značilk so preverjali hipotezo z dvema različnima pristopoma. Najprej preizkusili tri pristope klasifikacije za napovedovanje resnosti bolezni:
  
@@ -115,7 +114,7 @@ Drugič, izvedli smo statistične analize, da bi ugotovili, katere izračunane z
 
 Z uporabo mejnih točk so izračunali kotno razdaljo med palcem in kazalcem tako, da so izračunali kot med dvema vektorjema, ki sta nastala z povezovanjem konic prstov z osnovo roke.
 
-![Slika prikazuje signale kotne premikljivosti, pridobljene po nizkopasovnem filtriranju surovih podatkov o kotni razdalji (omejitvena frekvenca 7Hz). Vrhovi in doline signalov so bili avtomatsko ocenjeni z uporabo standardnih algoritmov. Vrhovi in doline signalov ustrezajo največjemu odpiranju in zapiranju prstov.](slike/slika1.png){width=50%}
+![Slika prikazuje signale kotne premikljivosti, pridobljene po nizkopasovnem filtriranju surovih podatkov o kotni razdalji (omejitvena frekvenca 7Hz). Vrhovi in doline signalov so bili avtomatsko ocenjeni z uporabo standardnih algoritmov. Vrhovi in doline signalov ustrezajo največjemu odpiranju in zapiranju prstov.](slike/slika1.png){width=50% 
 
 ### Računanje značilk(_Extraction of Kinematic Features_)
 
@@ -348,5 +347,58 @@ Zadnji model, Feed-forward Neural Network (FNN), doseže izjemno natančnost 99,
 
 John Michael Templeton se je osredotočil na klasifikacijo z drevesom odločitev na podlagi podatkov senzorjev in dosegel natančnost 85,72%. Gunjan Pahuja je raziskoval učinkovitost MLP, SVM in KNN, pri čemer je dosegel impresivno natančnost 95,89%. Aditi Govindu je uporabila SVM, RF in KNN, dosegle pa so natančnost 91,83%. Farhad Abedinzadeh Torghabeh je preučil AdaBoost in KNN, pri čemer je dosegel visoko natančnost 98,62%. Khaled M je uporabil tehniki SMOTE in PCA, kar je privedlo do natančnosti 97,11%. Maitane Martinez je izvedla SVM in MLP, pri čemer je dosegla natančnost 84,41%. Ahmed M je osredotočil svojo raziskavo na SVM in dosegel natančnost 92,31%. Bruno Fonseca je raziskoval SVM, RF in KNN z natančnostjo 89,56%. Arti Rana je raziskovala umetne nevronske mreže (ANN) in dosegla natančnost 96,71%. Poleg tega je predlagani model, ki vključuje RandomizedSearchCV in FNN, pokazal najboljše rezultate z natančnostjo 99,11%.
 
+# Early detection of Parkinson’s disease using machine learning
+
+V tem članku opisujemo in preizkušamo nov pristop k računalniškemu vidu videoposnetkov testa tapkanja s prsti. Konkretno, uporabimo globoko nevronsko mrežo neposredno na videoposnetku tapkanja s prsti. Preizkušamo sposobnost te mreže, da loči tapkanje s prsti pri Parkinsonovi bolezni od tapkanja pri kontrolnih udeležencih. Poleg tega uporabimo class activation maps za vizualizacijo najpomembnejših prostorskih in časovnih območij videoposnetka tapkanja, na katere se mreža ‘osredotoči’, da loči Parkinsonovo bolezen od kontrolne skupine.
+
+## Metode
+
+### Podatki
+
+Skupaj je bilo zbranih 152 videoposnetkov tapkanja s prsti od 77 udeležencev, ki so vključevali 40 oseb z Parkinsonovo boleznijo (PwP) in 37 zdravih kontrolnih udeležencev. Leva in desna roka vsakega udeleženca sta bili posneti ločeno, pri čemer sta bila dva videoposnetka zavrnjena, ker je roka zapustila okvir kamere.
+
+Vse osebe z Parkinsonovo boleznijo (PwP) so bile predhodno diagnosticirane pri nevrologu, specialistu za gibalne motnje, ob času snemanja videoposnetkov so bile subjektivno in objektivno v stanju po svojem rednem režimu jemanja zdravil.
+
+Kontrolni udeleženci niso imeli zgodovine Parkinsonove bolezni ali druge nevrološke diagnoze.
+
+V videoposnetku sta bila vidna samo roka in podlaket. Razdalja med kamero in roko je bila približno 1 m, vendar ni bila natančno določena. Palec in kazalec (prsta 1 in 2) sta bila najbližje kameri. Udeleženci niso dobili posebnih navodil glede upogiba ali iztega prstov 3 do 5, temveč so jih lahko postavili po svoji izbiri, čeprav je raziskovalec dal kratko demonstracijo, pri kateri so bili ti prsti iztegnjeni.
+
+Za snemanje standardnega videoposnetka je bil uporabljen pametni telefon, nameščen na stojalu ob strani udeleženca, le z ambientalno osvetlitvijo (ločljivost 1920x1080 slikovnih pik, 60fps). Udeležence so prosili, naj tapkajo s kazalcem in palcem skupaj “čim hitreje in čim širše” vsaj 10 sekund. Vsak videoposnetek je bil urejen v posnetek dolžine 11 sekund: 1 sekundo pred začetkom tapkanja in 10 sekund tapkanja.
+
+### Preobdelava
+
+Za enotno velikost videoposnetkov je bil obrezan videoposnetek zmanjšan na 80x60 slikovnih pik z Gaussovim glajenjem in bikubično interpolacijo (pri ohranjanju 60fps) z uporabo knjižnice OpenCV, pred pretvorbo v sivinsko barvo.
+
+Videoposnetki so bili razdeljeni na 1-sekundne izrezke, ki so se med seboj prekrivali za 0,5 sekunde, tako da so bili izrezki od 0 do 1 sekunde, 0,5–1,5 sekunde, 1–2 sekunde itd. Ta postopek je prinesel skupno 3148 izrezkov (1637 pacientov in 1511 kontrolnih), vsak dolžine 60fps in velikosti 80x60 slikovnih pik. Ti izrezki so predstavljali vizualne podatke za usposabljanje in ocenjevanje modela.
+
+Preden so bili podatki posredovani nevronski mreži, so bili podatki za usposabljanje centrirani na povprečje in deljeni z vsesplošno standardno deviacijo vrednosti slikovnih pik (tj. Z-score normalization). Preskusni podatki so bili normalizirani z uporabo povprečja in standardne deviacije podatkov za usposabljanje.
+
+### Izdelava modela
+
+Ker so videoposnetki shranjeni kot 3-tensor  s dimenzijami 60x80x60, je naš model nevronska mreža, ki temelji predvsem na 3D konvolucijskih filtrih. Model vključuje tri plasti konvolucij in max-pooling, pri čemer je med konvolucijami in max-pooling operations uporabljena normalizacija po sklopih za izboljšanje stopnje konvergence.
+
+Parametri v 3D konvolucijah in gostih plasteh so imeli L2 (tj. Ridge) regularizacijo za preprečevanje prenaučenosti, poleg tega pa je bila med popolnoma povezano plastjo in izhodno plastjo uporabljena plast za izločanje (10% dropout). Skupno ima ta model 20 milijonov učljivih parametrov. 
+
+Model je bil zgrajen z uporabo ogrodja Keras in usposobljen z uporabo optimizatorja Adam, ki je bil uporabljen za funkcijo izgube binary cross-entropy loss. Hitrost učenja, število epoch in moč regularizacije so bile izbrane z uporabo grid search, združenega z 6-kratno navzkrižno validacijo, da bi maksimizirali F1-oceno. 
+
+### Učinkovitost nevronske mreže
+
+Natančnost klasifikacije modela je bila ocenjena z uporabo petih metrik: 
+
+- accurancy, 
+- precision, 
+- priklic (recall), 
+- F1-ocena in 
+- Area Under the Receiver Operating Characteristic curve (AUROC).
+
+Za pridobitev realističnih ocen učinkovitosti smo uporabili navzkrižno validacijo - model za usposabljanje in testiranje, je bil nato usposobljen na 4 teh sklopih, en sklop uporabljen za validacijo in en za testiranje.
+
+## Rezultati
+
+Z uporabo našega postopka navzkrižne validacije je model dosegel odlično učinkovitost na podatkih za usposabljanje, z nekaterimi dokazi o prenaučenosti (kar je verjetno posledica omejenega števila razpoložljivih podatkov). 
+
+Accurancy na testnih podatkih je bila 0.69, precision 0.73, priklic (recall) 0.76, in AUROC na testu 0.76. Ta model je imel hitrost učenja 7.2e-4, moč regularizacije 0.1, in je tekel 400 epoch.
+
+Naši rezultati kažejo, da se lahko nevronska mreža globokega učenja neposredno uporabi na videoposnetkih tapkanja s prsti, posnetih s pametnim telefonom, brez vnaprej določenih pravil ali meril, za razlikovanje oseb s Parkinsonovo boleznijo od kontrolnih udeležencev.
 
 
