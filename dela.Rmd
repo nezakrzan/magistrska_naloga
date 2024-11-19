@@ -1,0 +1,246 @@
+---
+title: "Sorodna dela"
+author: "Neza Krzan"
+date: "2024-11-13"
+output:
+ pdf_document:
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = '~/Documents/magisterska_naloga')
+```
+
+Ocenjevanje resnosti Parkinsonove bolezni trenutno temelji na nevroloških pregledih v abulanti, kjer pacient izvaja motorične naloge, ki so opisane v lestvici _Movement Disorder Society-Unified Parkinson's Disease Rating Scale_ (MDS-UPDRS). Ker so pregledi in ocene subjektivni, je raziskovanje objektivnega ocenjevanja pogosto raziskovana tema z različnimi rešitvami.
+
+Objektivno ocenjevanje uporablja nosljive in nenosljive tehnologije za ocenjevanje merjenih značilnosti gibanja. Obstajajo tudi mešani pristopi, pri katerih se uporablja kombinacija računalniških vida in pasivnih ali aktivnih nosljivih naprav. Podatki, zbrani na ta način, se nato analizirajo z modeli, ki ocenjujejo motorične sposobnosti pacienta. 
+
+Ocenjevanje telesnih gibov( _HPE – Human Pose Estimation_) celotnega telesa je doseglo izjemno natančnost, sledenje gibom rok pa zaenkrat še predstavlja izzive. Podobno kot pri ocenjevanju telesnih gibov, tudi pri sledenju rok uporabljajo različne pristope - uporaba nosljivih naprav(IMU, senzorske rokavice) in uporaba računalniškega vida.
+
+Nosljive naprave predstavljajo uveljavljen pristop za objektivno ocenjevanje stopnje Parkinsonove bolezni in pogosto presegajo tradicionalne pristope računalniškega vida. Večina nosljivih naprav temelji na IMU, ki zaznavajo gibe rok ali na MG senzorjih za merjenje mišične aktivnosti. Tapkanje s prsti( _finger tapping_) ter proučevanje gibov rok pa bolj temelji na analizi video posnetkov in globokem učenju ter je zelo raziskovana metoda v zadnjih letih. 
+
+# Proučevane naloge v dosedanjih študijah
+
+Različna dela preučujejo različne znake Parkinsonove bolezni, vendar med najpogosteje preučevanimi je tapkanje s prsti( _finger tapping_), sledi ji gibanje rok( _hand movements_), pronacija-supinacija ( _pronation-supination_) in tremor. Pogosto so tapkanje s prsti, gibanje rok in pronacija-supinacija preučevane skupaj, ker naj bi bile celoten pokazatelj ocene MDS-UPDRS. 
+
+Študije sledijo kliničnim ciljem - stadij bolezni(ocena po MDS-UPDRS), prepoznavanje bolezni v primerjavi z zdravimi kontrolnimi primeri in ocena specifičnih imptomov(oceno tremorja, bradikinezije); največ študij se ukvarja z oceno bolezni po MDS-UPDRS in primerjavo značilk z zdravo kontrolno skupino. Pri ocenjevanju stadija bolezni po MDS-UPDRS gre za kompleksen problem, zlasti med sosednjimi ocenami. Študije poročajo o nizki povprečni natančnosti( _across-task_ in _across-cross-validation-stage accuracy_), vendar o dobri vrednosti sprejemljive natančnosti( _acceptable accuracy_). Pri prepoznavanju bolezni oz. diagnozi bolezni poročajo o visokih natančnostih, zlasti pri tapkanju s prsti.
+
+
+# Pridobivanje videoposnetkov oz. podatkov v primeru preučevanja tapkanja s prsti( _finger tapping_)
+
+Različne študije so se poslužile zajema podatkov na različne načine(npr. tipkanje na tipkovnico, uporaba nosljive naprave nameščene na kazalcu), med najbolj priljubljenimi načini pa so videoposnetki tapkanja s prsti. 
+
+Posnetki so bili pridobljeni v ustreznem okolju(ambulanta ali laboratorij) z uporabo standardnih kamer ali kamer telefonov(15fps, 30fps ali 60fps, večin 1920x1080 slikovnih pik ali 3840x2160 slikovnih pik), ponavadi nameščenih na stojalo, ki je bilo v večini študij 1m oddaljen od roke oz. palca in kazalca.
+
+Pri osebah s Parkinsonovo boleznijo so v večini študij prevladovali moški in bolniki z diagnozo, ki je bila postavljena s strani specialista pred manj kot dvema/tremi/petimi leti(v večini študij) s strani nevrologa. Nekatere študije so obravnavale osebe s Parkinsonovo boleznijo, ki se ne poslužujejo nobeni terapiji, pri nekaterih študijah pa to ni bilo pomembno. Osebe s Parkinsonovo boleznijo so naloge običajno izvajale z obema rokama, pri čemer so se posnetki leve in desne roke obravnavali kot neodvisni, saj je lahko ocena leve in desne strani različna po MDS-UPDRS. Naloga se je izvajala le enkrat, saj pri osebah s Parkinsonovo boleznijo ponovno izvajanje naloge ne prinese realne predstavitve stanja bolezni, zaradi utrujenosti. V nekaterih študijah pa so bili vključeni tudi posnetki zdravih oseb, t.i. kontrolnih oseb, ki niso imeli zgodovine Parkinsonove bolezni ali druge nevrološke bolezni, zaradi specifičnosti obravnavanega problema. Zdrave osebe pa so nalogo izvajale le z dominantno roko. 
+
+Osebam je bilo ponavadi pokazano kako naj izvajajo nalogo, med samim izvajanjem pa jih niso popravljali. Nalogo tapkanja s prsti so v večini izvajali po 10 ali 15 sekund. 
+
+# Obdelava postentkov in podatkov, pridobljenih iz posnetkov
+
+Algoritmi oziroma arhitekture, ki so jih izdelali v študijah vsebujejo različne načine obdelovanja posnetkov. V posnetkih sledijo gibanju rok oz. oceni pozicije roke s pomočjo različnih orodij, obstajajo pa tudi primeri ko so uporabili globoko nevronsko mrežo neposredno na videoposnetkih tapkanja s prsti.
+
+Sledenje gibom rok na podlagi videoposnetkov oz. ocena pozicije rok( _hand pose estimation_) je metoda pridobivanja nabora položajev sklepov rok iz _RGB_, _depth_ in _RGB-Depth_ videposnetkov. Za detekcijo roke večina uporablja nabor sklepov z različnimi orodji. Večina uporablja nabor sklepov, ki se uporablja v orodnjih _OpenPose_ in _MediaPipe_, je model roke COCO( _COCO Hand model_), sestavljen iz 21 točk, ki predstavljajo glavne sklepe roke, kot je prikazano na sliki \@ref{skelet_roke}.
+
+![COCO Hand model, tipična konfiguracija sklepov v orodjih _OpenPose_ in _MediaPipe_.](slike/skelet_roke.png){width=50%}
+
+Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobila s pomočjo orodij _MediaPipe_, _OpenPose_, _DeepLabCut_ in _MMPose_. Za roko vrnejo skelet 21 točk iz katerih so potem računali različne značilke.
+
+Identificirali so tudi posamična gibanja tapkanja s prsti - cikel tapkanja. Nekateri so se problema lotili z izračunom razdalje med palcem in kazalcem oz. kotne razdalje med palcem in kazalcem in na podlagi tega ter standardnih algoritmov določili vrh in dno amplitude oz. odpiranje in zapiranje prstov.
+
+Nekatere študije so se lotile tudi problema neravnovesja razredov - večina je bila uporabljen tehnika SMOTE( _Synthetic Minority Oversampling Technique_). S to tehniko so povečali manj zastopane razrrede in zmanjšali prekomerno zastopane razrede v njihovih podatkih. 
+
+# Izračun značilk
+
+V študijah so se avtorji predvsem posluževali ročnega izračuna značilk iz signalov glede na smernice ocen po lestvici MDS-UPDRS. Signali so predstavljali predvsem pospešek( _acceleration_), kotna hitrost( _angular velocity_), premik( _displacement_) in kot( _angle_).
+
+Najpogosteje uporabljene značilke in njihove različne formule, ki so skladne s spodnjo sliko. Za izračun sprememb območja in hitrosti tapkanja prstov so nekateri avtorji izbrali tudi tridimenzionalne podatke o sklepih, torej posamezen sklep $J_i$, $i = 1, \dots, 21$(model roke COCO) je definiran kot $J_i = (x_i, y_i, z_i)$, s katerimi so računali eklidnske razdalje med posameznimi sklepi v določenem časovnem okviru.
+
+![Shematična označitev odvisnosti amplitude gibanj (A) od števila sličic (k).](slike/featursi.png){width=50%}
+
+- Število gibanj, štetih po maksimalnih točkah
+- Maksimalna točka med maksimalnimi točkami
+- Maksimalna točka med minimalnimi točkami
+- Minimalna točka med maksimalnimi točkami
+- Minimalna točka med minimalnimi točkami
+- Povprečno število maksimalnih točk
+- Standardni odklon maksimalnih točk
+- Povprečno število minimalnih točk
+- Standardni odklon minimalnih točk
+
+**Amplituda( _amplitude_) in hitrost( _speed_):**\
+dve najbolj običajni značilki, ki se analizirata za oceno Parkinsonove bolezni z uporabo tapkanja s prsti. V večini primerov sta definirani kot:
+
+_Amplituda: razdalja med palcem in kazalcem._\
+_Hitrost: razlika v amplitudi skozi čas._
+
+Iz amplitude in hitrosti so bile pogosto izračunane naslednje značilke:
+
+- Povprečna, maksimalna in minimalna hitrost odpiranja in zapiranja, 
+- povprečna, maksimalna in minimalna amplituda odpiranja in zapiranja, standardni odklon amplitude odpiranja in zapiranja,
+- povprečje in koeficient variacije amplitude gibanja,
+- povprečje in koeficient variacije hitrosti gibanja (amplituda gibanja / trajanje gibanja),
+- povprečje in koeficient variacije hitrosti gibanja pri odpiranju (amplituda gibanja / trajanje gibanja pri odpiranju), 
+- povprečje in koeficient variacije hitrosti gibanja pri zapiranju (amplituda gibanja / trajanje gibanja pri zapiranju), 
+- povprečje, koeficient variacije in razpon trajanja cikla, 
+- hitrost gibanja (število pritiskov na čas) ter 
+- upad amplitude (povprečna amplituda v prvi polovici poskusa v primerjavi s povprečno amplitudo v drugi polovici poskusa).
+
+**Definicija:** _Amplituda odpiranja_ je razlika med najvišjo in najnižjo točko v fazi odpiranja gibanja. Izračuna se po formuli
+
+$$
+Max_n-Min_n.
+$$
+
+**Definicija:** _Amplituda zapiranja_ je razlika med najvišjo in najnižjo točko v fazi zapiranja gibanja. Izračuna se po formuli
+
+$$
+Max_n-Min_{n+1}.
+$$
+
+**Definicija:** _Hitrost odpiranja_ je razlika med največjim in najmanjšim vrhom v fazi odpiranja gibanja, deljena z ustreznim časovnim intervalom. Izračuna se po formuli
+
+$$
+\frac{Max_n-Min_n}{kMax_n-kMin_n}.
+$$
+
+
+**Definicija:** _Hitrost zapiranja_ je razlika med največjim in najmanjšim vrhom v fazi zapiranja gibanja, deljena z ustreznim časovnim intervalom. Izračuna se po formuli
+
+$$
+\frac{Max_n-Min_{n+1}}{kMax_n-kMin_{n+1}}.
+$$
+
+_Povprečje amplitude_:
+$$
+f_{mean} = \frac{\sum_{n=1}^{N}A_n}{N},
+$$
+
+kjer $p = [p_1, p_2, \dots, p_n, \dots, p_N]$ predstavlja vrhove, kjer je $p_n$ $n$-ti vrh, $A_n$ pa amplituda pripadajočega vrha $p_n$.
+
+_Varianca amplitude_:
+$$
+\frac{\sum_{n=1}^{N}(A_n - f_{mean})^2}{N}
+$$
+
+_Povprečna hitrost gibanja prsta_:
+$$
+s_{mean} = \frac{\sum_{n=1}^{N-1}V_n}{N-1},
+$$
+
+kjer je $V_n = \frac{A_n + A_{n-1}}{\Delta t_n}$, $\Delta t_n = t_n - t_{n-1}$ časovni interval med $n-1$-tim in $n$-tim vrhom amplitude.
+
+_Varianca hitrosti_:
+$$
+s_{var} = \frac{\sum_{n=1}^{N-1}(V_n - s_{mean})^2}{N-1}.
+$$
+
+
+
+
+**Utrujenost oz. zastoj in oklevanje( _halt and hesitation_):** \
+lastnosti pri kateri imamo več različnih pristopov, uporabljenih za njeno oceno. Na primer:
+
+- razlika med najvišjimi in najnižjimi vrednostmi amplitudnih vrhov,
+- gradient amplitude glede na čas,
+- razlika med številom tapkanj v dveh časovnih intervalih,
+- koeficient variacije v hitrosti tapkanja,
+- razlika med povprečno vrednostjo maksimalne amplitude tapkanja prstov v dveh časovnih intervalih,
+- koeficient variacije v maksimalni amplitudi tapkanja prstov,
+- pospešek tapkanja.
+
+Zastoj je bil ponavadi opredeljen kot trenutek popolne ustavitve, oklevanje pa kot opazen upad hitrosti. Ta dva pojma so opredelili s pomočjo vrhov $p = [p_1, p_2, \dots, p_n, \dots, p_N]$, kjer so uporabili model prilagajanja krivulje množici $p$, z namenom ocene trenda vrhov. Predpostavljamo, da je $p_n$ vrh, ko je prišlo do zastoja in oklevanja, $\hat{p}_n$ pa predstavlja napovedani vrh na podlagi prilagojenega modela. Potem je značilka zastoja in oklevanja lahko definirana kot
+
+$$
+f_{hh} = \{ 1, če \lvert
+$$
+
+**Frekvenca( _frequency_) oz. ritem( _rhythm_):**\
+Uporabljata se oba pojma, ampak ne pomenita vedno isto. Izračun lahko temelji na na uporabi hitre Fourierove transformacije( _Fast Fourier Transform_), eden izmed pristopov je tudi uporaba lastnosti "prekrižna korelacija med normaliziranimi vrhovi"( _cross-correlation between the normalized peaks_) za oceno doslednosti in ritma pri tapkanju. 
+
+**Definicija:** Frekvenca je enota, deljena s časovnim razponom enega gibanja. Izračunamo jo po formuli
+
+$$
+\frac{1}{kMax_{n+1} - kMax_{n}}.
+$$
+
+Računali so:
+
+- povprečna frekvenca, 
+- standardni odklon frekvence. 
+
+## Demografske značilke
+
+Nekateri so v model vklučili tudi dva demografska dejavnika - spol in starost. To temelji na opažanju, da naj bi lahko starejši posamezniki kazali znake bradikinezije, povezane s staranjem, neodvisno od Parkinsonove bolezni, ter da lahko starost in spol vplivata na razvoj bolezni.
+
+
+
+<!--
+## Orodja
+
+V zadnjih letih so najbolj uporabna orodja _OpenPose_, _DeepLabCut_, _MediaPipe_ in _MMPose_.
+
+### OpenPose
+
+OpenPose je orodje za sledenje človeške drže in gibanja na podlagi slik ali videoposnetkov. Omogoča prepoznavanje ter sledenje različnih ključnih točk na telesu, kot so sklepi, obrazne poteze, roke in stopala. Uporablja računalniški vid in nevronske mreže za analizo vizualnih podatkov ter generira koordinate teh ključnih točk v prostoru.
+
+Večina se uporablja osnovna 2D predstavitev drže iz OpenPose za regresijo MDS-UPDRS ocen s strojnim učenjem ali globokim učenjem ter za primerjavo značilk pri Parkinsonovih bolnikih in zdravih kontrolnih osebah s pomočjo statističnega testiranja. V eni izmed študij so validirali tudi izpeljane značilke s standardnimi pristopi, tj. IMU in prišli do korelacije med meritvami OpenPose in IMU, medtem ko v drugi preverjajo zgolj skladnost med ocenami modelov in subjektivnimi ocenami nevrologov. Rezultati študij kažejo na dobro skladnost.
+
+### DeepLabCut
+
+DeepLabCut je oorodje za sledenje gibanju z uporabo globokega učenja, ki je posebej zasnovan za natančno sledenje ključnih točk telesa ali specifičnih delov telesa na slikah in videoposnetkih. Z uporabo Transfer Learning je mogoče prilagoditi vnaprej usposobljene konvolucijske nevronske mreže (CNN) za ocenjevanje drže z uporabo ročno označenih podmnožic slikovnih okvirjev iz video posnetkov. Na primer, pri sledenju rok lahko označimo celoten COCO skeletni model roke ali le njegov del in jih preučimo. Njegova natančnost je odvisa od omejene podmnožice označenih podatkov za usposabljanje in kakovost označenih podatkov.
+
+V večini študij je uporabljeno preprosto 2D sledenje RGB videoposnetkov za regresijo MDS-UPDRS ocen, nekateri tudi oceno bradikinezije.
+
+### MediaPipe
+MediaPipe je orodje, ki uporabljajo napredne tehnike računalniškega vida in strojnega učenja. Vsebuje modul, imenovan Google MediaPipe Hand (GMH) [88], ki temelji na pristopu globokega učenja za sledenje rokam. 
+
+Uporablja se za različne namene, vključno z regresijo MDS-UPDRS ocen, prepoznavanjem Parkinsonove bolezni ter oceno tremorja v mirovanju. Večina del ga izkorišča za 2D sledenje, nekateri za 3D ter RGB/RGB-Depth.
+
+### MMPose
+MMPose je odprtokodna knjižnica za prepoznavanje in sledenje telesni drži. Zasnovana je za naloge sledenja telesu( _pose estimation_) in analize gibanja, ki vključujejo prepoznavanje ključnih točk na telesu, obrazu, rokah in stopalih iz slik ali videoposnetkov.
+
+Večina ga uporabljajo s kombiniranjem različnih arhitektur - 2D in 3D sledenje na RGB videoposnetkih, preprosto konvolucijsko mrežo. Uporablja se tako za regresijo MDS-UPDRS ocen kot tudi za oceno bradikinezije.
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+Del v drugi skupini (3 študije) uporablja ročno izdelano ekstrakcijo lastnosti in plitvo učenje za izvajanje prepoznavanja Parkinsonove bolezni [78,125,134]. Ta uporaba običajno služi kot preliminarna preiskava, preden se lotijo globlje analize patoloških subjektov.
+
+Tretja skupina (7 del) se večinoma osredotoča na oceno tresenja [131,133,143], bradikinezije [113,124,144] ali obojega [115]. Ta cilj je v teh študijah dosežen bodisi z raziskovanjem korelacije med ustreznimi ročno izdelanimi lastnostmi, izvlečenimi iz podatkov o sledenju, in kliničnimi rezultati [113,115,124,133], bodisi z raziskovanjem, kako so te lastnosti delovale pri avtomatskem prepoznavanju simptomov [131,143,144].
+
+Skupina Drugo vsebuje eno samo delo [126], ki je poskušalo avtomatsko oceniti vrsto gibov rok, ki jih opravljajo pacienti s Parkinsonovo boleznijo med operacijo globoke možganske stimulacije (DBS).
+
+najprej pridobijo ročno izdelane lastnosti iz podatkov o sledenju rok in nato te vnesejo v plitve [78,79,81,105,112,118,125,146,147] ali globoke [132,141] modele, do rešitev, ki neposredno (ali po minimalni predobdelavi) uporabijo podatke o sledenju kot vhod v regresijske globoke učne mreže [116,117,142].
+-->
+
+
+
+
+
+
