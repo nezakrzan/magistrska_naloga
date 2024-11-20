@@ -46,15 +46,37 @@ Sledenje gibom rok na podlagi videoposnetkov oz. ocena pozicije rok( _hand pose 
 
 Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobila s pomočjo orodij _MediaPipe_, _OpenPose_, _DeepLabCut_ in _MMPose_. Za roko vrnejo skelet 21 točk iz katerih so potem računali različne značilke.
 
-Identificirali so tudi posamična gibanja tapkanja s prsti - cikel tapkanja. Nekateri so se problema lotili z izračunom razdalje med palcem in kazalcem oz. kotne razdalje med palcem in kazalcem in na podlagi tega ter standardnih algoritmov določili vrh in dno amplitude oz. odpiranje in zapiranje prstov.
+Dogajalo se je tudi, da zgornja orodja niso zaznala vseh sličic videoposnetka in so podatki imeli mankajoče očke skeleta posameznih sličic. Nekateri so se problema lotili z linearno interpolacijo, ki so jo uporabili le v primeru, ko je orodje zaznalo prejšnjo in naslednjo sličico. Posnetke, kjer orodja niso zaznala več sličic, so odstranili iz podatkov. 
 
-Nekatere študije so se lotile tudi problema neravnovesja razredov - večina je bila uporabljen tehnika SMOTE( _Synthetic Minority Oversampling Technique_). S to tehniko so povečali manj zastopane razrrede in zmanjšali prekomerno zastopane razrede v njihovih podatkih. 
+Identificirali so tudi posamična gibanja tapkanja s prsti - cikel tapkanja. Nekateri so se problema lotili z izračunom razdalje med palcem in kazalcem oz. kotne razdalje med palcem in kazalcem in na podlagi tega ter standardnih algoritmov določili vrh in dno amplitude oz. odpiranje in zapiranje prstov. Večina se jih je posluževalo izračuna evklidske razdalje med palcem in kazalcem, saj so bili koti občutljivi na nagib kamere - med kamero in roko bi moralo biti 90 stopinj. 
 
-# Izračun značilk
+Orodja so v podatke vpeljela visokofrekvenčne šume, ki nastanejo zaradi prileganja skeleta orodja roki in tremorja oseb s Parkinsonovo boleznijo. Dobljene razdalje oz. kote so zato zgladili na različne načine.
 
-V študijah so se avtorji predvsem posluževali ročnega izračuna značilk iz signalov glede na smernice ocen po lestvici MDS-UPDRS. Signali so predstavljali predvsem pospešek( _acceleration_), kotna hitrost( _angular velocity_), premik( _displacement_) in kot( _angle_).
+Nekatere študije so se lotile tudi problema neravnovesja razredov - večina je bila uporabljen tehnika SMOTE( _Synthetic Minority Oversampling Technique_). S to tehniko so povečali manj zastopane razrede in zmanjšali prekomerno zastopane razrede v njihovih podatkih. 
 
-Najpogosteje uporabljene značilke in njihove različne formule, ki so skladne s spodnjo sliko. Za izračun sprememb območja in hitrosti tapkanja prstov so nekateri avtorji izbrali tudi tridimenzionalne podatke o sklepih, torej posamezen sklep $J_i$, $i = 1, \dots, 21$(model roke COCO) je definiran kot $J_i = (x_i, y_i, z_i)$, s katerimi so računali eklidnske razdalje med posameznimi sklepi v določenem časovnem okviru.
+Pred računanjem značilk so nekateri avtorji, predvsem tist, ki se niso posluževali ročnega računanja značilk, podatke normalizirali z uporabo povprečja in standardne deviacije podatkov(Z-score normalization).
+
+# Značilke
+
+Večina avtorjev je svoje modele gradila na ročno izračunanih značilkah( _manual features_) glede na smernice ocen po lestvici MDS-UPDRS. Ker pa nekateri niso dobro poznali problema in značilnosti Parkinsonove bolezni, ali pa so model, naučen na ročno izračunanik značilkah, želeli primerjati, so se izračuna značilk lotili z nevronskimi mrežami. Kot vhodni podatek so podali časovno zaporedje podatkov, model pa je iz njih izluščil značilke. 
+
+## Ročno pridobljene značilke
+
+Ročno računanje značilk je temeljilo na signalih, ki so predstavljali pospešek( _acceleration_), kotna hitrost( _angular velocity_), premik( _displacement_) in kot( _angle_) v časovni vrsti. 
+
+Za izračun sprememb območja in hitrost tapkanja prstov so avtorji po večini izbrali dvodimenzionalne podatke o sklepih, kjer je posamezen sklep $J_i$, $i = 1, \dots, 21$(model roke COCO) je definiran kot $J_i = (x_i, y_i)$ oz. tridimenzionalne podatke o sklepih, torej posamezen sklep $J_i$, $i = 1, \dots, 21$(model roke COCO) je definiran kot $J_i = (x_i, y_i, z_i)$, s katerimi so računali evklidske razdalje med posameznimi sklepi v določenem časovnem okvirju, najpogosteje razdaljo med palcem in kazalcem. Evklidska razdalja med palcem in kazalcem v časovnem okvirju $t$ za dvodimenzionalne podatke je definirana kot
+
+$$
+D_t = d(J_4^t, J_8^t) = \sqrt{(x_4^t - x_8^t)^2 + (y_4^t - y_8^t)^2}
+$$
+
+oz. za trodimenzionalne podatke
+
+$$
+D_t = d(J_4^t, J_8^t) = \sqrt{(x_4^t - x_8^t)^2 + (y_4^t - y_8^t)^2 + (z_4^t - z_8^t)^2}.
+$$
+
+
 
 ![Shematična označitev odvisnosti amplitude gibanj (A) od števila sličic (k).](slike/featursi.png){width=50%}
 
@@ -67,9 +89,11 @@ Najpogosteje uporabljene značilke in njihove različne formule, ki so skladne s
 - Standardni odklon maksimalnih točk
 - Povprečno število minimalnih točk
 - Standardni odklon minimalnih točk
+- število vrhov v časovnem intervalu, $F_p$
 
-**Amplituda( _amplitude_) in hitrost( _speed_):**\
-dve najbolj običajni značilki, ki se analizirata za oceno Parkinsonove bolezni z uporabo tapkanja s prsti. V večini primerov sta definirani kot:
+### Amplituda( _amplitude_) in hitrost( _velocity_)
+
+Amplituda in hitrost sta dve najbolj običajni značilki, ki se analizirata za oceno Parkinsonove bolezni z uporabo tapkanja s prsti. V večini primerov sta definirani kot:
 
 _Amplituda: razdalja med palcem in kazalcem._\
 _Hitrost: razlika v amplitudi skozi čas._
@@ -85,6 +109,8 @@ Iz amplitude in hitrosti so bile pogosto izračunane naslednje značilke:
 - povprečje, koeficient variacije in razpon trajanja cikla, 
 - hitrost gibanja (število pritiskov na čas) ter 
 - upad amplitude (povprečna amplituda v prvi polovici poskusa v primerjavi s povprečno amplitudo v drugi polovici poskusa).
+- prelomna točka amplitude( _breakpoint_), $F_{amp- bp}$
+- prelomna točka hitrosti( _breakpoint_), $F_{vel- bp}$
 
 **Definicija:** _Amplituda odpiranja_ je razlika med najvišjo in najnižjo točko v fazi odpiranja gibanja. Izračuna se po formuli
 
@@ -113,33 +139,31 @@ $$
 
 _Povprečje amplitude_:
 $$
-f_{mean} = \frac{\sum_{n=1}^{N}A_n}{N},
+F_{amp - mean} = \frac{\sum_{n=1}^{N}A_n}{N},
 $$
 
-kjer $p = [p_1, p_2, \dots, p_n, \dots, p_N]$ predstavlja vrhove, kjer je $p_n$ $n$-ti vrh, $A_n$ pa amplituda pripadajočega vrha $p_n$.
+kjer $p = [p_1, p_2, \dots, p_n, \dots, p_N]$ predstavlja vrhove, kjer je $p_n$ $n$-ti vrh, $A_n$ pa amplituda pripadajočega vrha $p_n$. 
 
 _Varianca amplitude_:
 $$
-\frac{\sum_{n=1}^{N}(A_n - f_{mean})^2}{N}
+F_{amp - var}\frac{\sum_{n=1}^{N}(A_n - f_{mean})^2}{N}
 $$
 
 _Povprečna hitrost gibanja prsta_:
 $$
-s_{mean} = \frac{\sum_{n=1}^{N-1}V_n}{N-1},
+F_{vel - mean} = \frac{\sum_{n=1}^{N-1}V_n}{N-1},
 $$
 
 kjer je $V_n = \frac{A_n + A_{n-1}}{\Delta t_n}$, $\Delta t_n = t_n - t_{n-1}$ časovni interval med $n-1$-tim in $n$-tim vrhom amplitude.
 
 _Varianca hitrosti_:
 $$
-s_{var} = \frac{\sum_{n=1}^{N-1}(V_n - s_{mean})^2}{N-1}.
+F_{vel - var} = \frac{\sum_{n=1}^{N-1}(V_n - s_{mean})^2}{N-1}.
 $$
 
 
-
-
-**Utrujenost oz. zastoj in oklevanje( _halt and hesitation_):** \
-lastnosti pri kateri imamo več različnih pristopov, uporabljenih za njeno oceno. Na primer:
+### Utrujenost oz. zastoj in oklevanje( _halt and hesitation_)
+Utrujenost oz. zastoj in oklevanje sta lastnosti pri kateri imamo več različnih pristopov, uporabljenih za njeno oceno. Na primer:
 
 - razlika med najvišjimi in najnižjimi vrednostmi amplitudnih vrhov,
 - gradient amplitude glede na čas,
@@ -152,16 +176,22 @@ lastnosti pri kateri imamo več različnih pristopov, uporabljenih za njeno ocen
 Zastoj je bil ponavadi opredeljen kot trenutek popolne ustavitve, oklevanje pa kot opazen upad hitrosti. Ta dva pojma so opredelili s pomočjo vrhov $p = [p_1, p_2, \dots, p_n, \dots, p_N]$, kjer so uporabili model prilagajanja krivulje množici $p$, z namenom ocene trenda vrhov. Predpostavljamo, da je $p_n$ vrh, ko je prišlo do zastoja in oklevanja, $\hat{p}_n$ pa predstavlja napovedani vrh na podlagi prilagojenega modela. Potem je značilka zastoja in oklevanja lahko definirana kot
 
 $$
-f_{hh} = \{ 1, če \lvert
+F_{hh} = \begin{cases}
+1, \text{ če } \lvert \hat{p}_n - p_n \lvert \ge \theta \\
+0, \text{ če } \lvert \hat{p}_n - p_n \lvert < \theta
+\end{cases},
 $$
 
-**Frekvenca( _frequency_) oz. ritem( _rhythm_):**\
+kjer je prag( _threshold_) definiran kot $\theta = \alpha \cdot \frac{A_{n+1}+ A_{n-1}}{2}$, $\alpha$ je parameter, ki nadzoruje prag, ki ga zaznamo( _detection threshold_). 
+
+### Frekvenca( _frequency_) oz. ritem( _rhythm_)
+
 Uporabljata se oba pojma, ampak ne pomenita vedno isto. Izračun lahko temelji na na uporabi hitre Fourierove transformacije( _Fast Fourier Transform_), eden izmed pristopov je tudi uporaba lastnosti "prekrižna korelacija med normaliziranimi vrhovi"( _cross-correlation between the normalized peaks_) za oceno doslednosti in ritma pri tapkanju. 
 
 **Definicija:** Frekvenca je enota, deljena s časovnim razponom enega gibanja. Izračunamo jo po formuli
 
 $$
-\frac{1}{kMax_{n+1} - kMax_{n}}.
+F_{freq} = \frac{1}{kMax_{n+1} - kMax_{n}}.
 $$
 
 Računali so:
@@ -173,6 +203,18 @@ Računali so:
 
 Nekateri so v model vklučili tudi dva demografska dejavnika - spol in starost. To temelji na opažanju, da naj bi lahko starejši posamezniki kazali znake bradikinezije, povezane s staranjem, neodvisno od Parkinsonove bolezni, ter da lahko starost in spol vplivata na razvoj bolezni.
 
+## Izbira značilk
+
+Izračunane značilke so ponavadi standardizirali z uporabo metode _StandardScalar_, kar naj bi zagotvaljalo, da vse značilke enako prispevajo k modelu in da ne bi katera izmed značilk prevadovala pri učanju modela.
+
+V študijah, kjer so imeli več značilk, so iskali tudi optimalno množico značilk - značilke, ki so najpomemnejše pri klasifikaciji Parkinsonove bolezni. Iskanje optimalne množice značilk se je razlikovalo glede na glavo nalogo zo. cilj študije. Tisti, ki so imeli, poleg nabora podatkov oseb s Parkinsonovo boleznijo, še nabor podatkov zdravih(kontrolnih) oseb, so primerjali značilke, izračunane za obe skupini oseb. Značilke so bile pregledane s pomočjo statističnega testiranja, da se ocenijo porazdelitve v teh dveh skupinah oseb. Ker so značilke pokazale nenormalno porazdelitev s pomočjo Shapiro-Wilkovega testa, so lahko uporabljali Mann-Whitneyev U-test za neodvisne vzorce, za prepoznavanje značilk, ki so v obeh skupinah oseb porazdeljene različno. Uporabljali so značilke, ki so bile, glede na skupino oseb, porazdeljene različno. 
+
+Za izbor množice optimalnih značilk so bili uporabljeni tudi različni algoritmi.\
+Pri algoritmu _Speeded Up Robust Features_(SURF) so bile izbrane značilke s pozitivnim rezultatom, ker to pomeni, da je značilka stabilna, točna in potencialno uporabna za nadaljnje operacije.\
+Algritem _Reursive Feature Elimination_(RFE) iterativno odstranjuje najmanj pomembne značilke na podlagi uspešnosti modela podpornih vekorjev(SVM), na koncu pa izbere množico, ki najbolje prispeva k nalogi klasifikacije.\
+_SelectKBest_ razvršča značilke glede na njihov _k-score_, metriko, ki meri relevantnost in informativnost posamezne značilke glede na ciljno spremenljivko. Značlke, ki imajo najvišje _k-score_, so prednostno vključene v končni nabor značilk, medtem ko so manj informativne značilke izključene.\
+
+Nekateri avtorji so po gradnji modelov na množici izbranih značilk ugotovili, da izključitev določenih značilk in s tem poslabšanje ravnovesja med značilkami povzorči poslabšanje modela, zato so se vselej odločili za gradnjo modela na celotnem naboru značilk. 
 
 
 <!--
