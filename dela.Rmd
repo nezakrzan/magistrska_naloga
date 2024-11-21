@@ -3,30 +3,54 @@ title: "Sorodna dela"
 author: "Neza Krzan"
 date: "2024-11-13"
 output:
- pdf_document:
-    latex_engine: xelatex
+  pdf_document:
+    fig_caption: true
+    number_sections: true
+header-includes:
+- \usepackage[slovene]{babel}
+- \usepackage{float}
+- \usepackage[T1]{fontenc}
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_knit$set(root.dir = '~/Documents/magisterska_naloga')
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center", fig.pos = "H", message = FALSE, warning = FALSE, results = F, fig.height =3, fig.width = 6.5)
+
+library(ggplot2)
 ```
 
 Ocenjevanje resnosti Parkinsonove bolezni trenutno temelji na nevroloških pregledih v abulanti, kjer pacient izvaja motorične naloge, ki so opisane v lestvici _Movement Disorder Society-Unified Parkinson's Disease Rating Scale_ (MDS-UPDRS). Ker so pregledi in ocene subjektivni, je raziskovanje objektivnega ocenjevanja pogosto raziskovana tema z različnimi rešitvami.
-
-Objektivno ocenjevanje uporablja nosljive in nenosljive tehnologije za ocenjevanje merjenih značilnosti gibanja. Obstajajo tudi mešani pristopi, pri katerih se uporablja kombinacija računalniških vida in pasivnih ali aktivnih nosljivih naprav. Podatki, zbrani na ta način, se nato analizirajo z modeli, ki ocenjujejo motorične sposobnosti pacienta. 
-
-Ocenjevanje telesnih gibov( _HPE – Human Pose Estimation_) celotnega telesa je doseglo izjemno natančnost, sledenje gibom rok pa zaenkrat še predstavlja izzive. Podobno kot pri ocenjevanju telesnih gibov, tudi pri sledenju rok uporabljajo različne pristope - uporaba nosljivih naprav(IMU, senzorske rokavice) in uporaba računalniškega vida.
-
-Nosljive naprave predstavljajo uveljavljen pristop za objektivno ocenjevanje stopnje Parkinsonove bolezni in pogosto presegajo tradicionalne pristope računalniškega vida. Večina nosljivih naprav temelji na IMU, ki zaznavajo gibe rok ali na MG senzorjih za merjenje mišične aktivnosti. Tapkanje s prsti( _finger tapping_) ter proučevanje gibov rok pa bolj temelji na analizi video posnetkov in globokem učenju ter je zelo raziskovana metoda v zadnjih letih. 
 
 # Proučevane naloge v dosedanjih študijah
 
 Različna dela preučujejo različne znake Parkinsonove bolezni, vendar med najpogosteje preučevanimi je tapkanje s prsti( _finger tapping_), sledi ji gibanje rok( _hand movements_), pronacija-supinacija ( _pronation-supination_) in tremor. Pogosto so tapkanje s prsti, gibanje rok in pronacija-supinacija preučevane skupaj, ker naj bi bile celoten pokazatelj ocene MDS-UPDRS. 
 
-Študije sledijo kliničnim ciljem - stadij bolezni(ocena po MDS-UPDRS), prepoznavanje bolezni v primerjavi z zdravimi kontrolnimi primeri in ocena specifičnih imptomov(oceno tremorja, bradikinezije); največ študij se ukvarja z oceno bolezni po MDS-UPDRS in primerjavo značilk z zdravo kontrolno skupino. Pri ocenjevanju stadija bolezni po MDS-UPDRS gre za kompleksen problem, zlasti med sosednjimi ocenami. Študije poročajo o nizki povprečni natančnosti( _across-task_ in _across-cross-validation-stage accuracy_), vendar o dobri vrednosti sprejemljive natančnosti( _acceptable accuracy_). Pri prepoznavanju bolezni oz. diagnozi bolezni poročajo o visokih natančnostih, zlasti pri tapkanju s prsti.
+```{r "delezi preucevanih znakov", fig.cap="Deleži preučevanih znakov Parkinsonove bolezni v pregledanih delih.", fig.height = 2.5, fig.width = 5}
+all = 5 + 7 + 8 + 19
+preucevana.dela = data.frame(kategorija = c("tremor", "pronacija-supinacija", "gibanje rok", "tapkanje s prsti"),
+                             st = c(5/all*100, 7/all*100, 8/all*100, 19/all*100))
+
+library(ggplot2)
+
+ggplot(preucevana.dela, aes(x = st, y = reorder(kategorija, -st))) +
+  geom_text(aes(label = paste(round(st, 0), "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+  scale_x_continuous(limits = c(0, 52.6)) +
+  labs(x = " ", y = " ") +
+  theme_minimal() +
+  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+```
 
 
-# Pridobivanje videoposnetkov oz. podatkov v primeru preučevanja tapkanja s prsti( _finger tapping_)
+Študije sledijo kliničnim ciljem - stadij bolezni(ocena po MDS-UPDRS), prepoznavanje bolezni v primerjavi z zdravimi kontrolnimi primeri in ocena specifičnih imptomov(oceno tremorja, bradikinezije); največ študij se ukvarja z oceno bolezni po MDS-UPDRS in primerjavo značilk z zdravo kontrolno skupino. Pri ocenjevanju stadija bolezni po MDS-UPDRS gre za kompleksen problem, zlasti med sosednjimi ocenami. Študije poročajo o nizki povprečni natančnosti( _across-task_ in _across-cross-validation-stage accuracy_), vendar o dobri vrednosti sprejemljive natančnosti( _acceptable accuracy_). Pri prepoznavanju bolezni oz. diagnozi bolezni pa poročajo o visokih natančnostih, zlasti pri tapkanju s prsti. \
+Ocenjevanje telesnih gibov( _HPE – Human Pose Estimation_) celotnega telesa je doseglo izjemno natančnost, sledenje gibom rok pa zaenkrat še predstavlja izzive. Podobno kot pri ocenjevanju telesnih gibov, tudi pri sledenju rok uporabljajo različne pristope - uporaba nosljivih naprav(IMU, senzorske rokavice) in uporaba računalniškega vida.
+
+# Pridobivanje videoposnetkov oz. podatkov
+
+Objektivno ocenjevanje uporablja nosljive in nenosljive tehnologije za ocenjevanje merjenih značilnosti gibanja. Obstajajo tudi mešani pristopi, pri katerih se uporablja kombinacija računalniških vida in pasivnih ali aktivnih nosljivih naprav. Podatki, zbrani na ta način, se nato analizirajo z modeli, ki ocenjujejo motorične sposobnosti pacienta.  Nosljive naprave predstavljajo uveljavljen pristop za objektivno ocenjevanje stopnje Parkinsonove bolezni in pogosto presegajo tradicionalne pristope računalniškega vida. Večina nosljivih naprav temelji na IMU, ki zaznavajo gibe rok ali na MG senzorjih za merjenje mišične aktivnosti. Tapkanje s prsti( _finger tapping_) ter proučevanje gibov rok pa bolj temelji na analizi video posnetkov in globokem učenju. \ 
+Ker je ta način je zelo raziskovana metoda v zadnjih letih, smo se tudi mi osredotočili na pregled del, ki temeljijo na tem pristopu.
 
 Različne študije so se poslužile zajema podatkov na različne načine(npr. tipkanje na tipkovnico, uporaba nosljive naprave nameščene na kazalcu), med najbolj priljubljenimi načini pa so videoposnetki tapkanja s prsti. 
 
@@ -44,9 +68,22 @@ Sledenje gibom rok na podlagi videoposnetkov oz. ocena pozicije rok( _hand pose 
 
 ![COCO Hand model, tipična konfiguracija sklepov v orodjih _OpenPose_ in _MediaPipe_.](slike/skelet_roke.png){width=50%}
 
-Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobila s pomočjo orodij _MediaPipe_, _OpenPose_, _DeepLabCut_ in _MMPose_. Za roko vrnejo skelet 21 točk iz katerih so potem računali različne značilke.
+Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobila s pomočjo orodij _MediaPipe_, _OpenPose_, _DeepLabCut_ in _MMPose_, ki so v zadnjih letih najbolj uporabna. Za roko vrnejo skelet 21 točk iz katerih so potem računali različne značilke.
 
-Dogajalo se je tudi, da zgornja orodja niso zaznala vseh sličic videoposnetka in so podatki imeli mankajoče očke skeleta posameznih sličic. Nekateri so se problema lotili z linearno interpolacijo, ki so jo uporabili le v primeru, ko je orodje zaznalo prejšnjo in naslednjo sličico. Posnetke, kjer orodja niso zaznala več sličic, so odstranili iz podatkov. 
+```{r "delezi orodij", fig.cap="Deleži uporabljenih orodij v preučevanih delih za sledenje rok in zaznavanje drže roke iz videoposnetkov. ", fig.height = 2.5, fig.width = 5}
+orodja = data.frame(kategorija = c("MMPose", "DeepLabCut", "MediaPipe", "OpenPose", "druga(kombinirana) orodja"),
+                             st = c(12, 20, 20, 24, 24))
+
+ggplot(orodja, aes(x = st, y = reorder(kategorija, -st))) +
+  geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+  scale_x_continuous(limits = c(0, 26.7)) +
+  labs(x = " ", y = " ") +
+  theme_minimal() +
+  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+```
+
+Dogajalo se je tudi, da zgornja orodja niso zaznala vseh sličic videoposnetka in so podatki imeli mankajoče točke skeleta posameznih sličic. Nekateri so se problema lotili z linearno interpolacijo, ki so jo uporabili le v primeru, ko je orodje zaznalo prejšnjo in naslednjo sličico. Posnetke, kjer orodja niso zaznala več sličic, so odstranili iz podatkov. 
 
 Identificirali so tudi posamična gibanja tapkanja s prsti - cikel tapkanja. Nekateri so se problema lotili z izračunom razdalje med palcem in kazalcem oz. kotne razdalje med palcem in kazalcem in na podlagi tega ter standardnih algoritmov določili vrh in dno amplitude oz. odpiranje in zapiranje prstov. Večina se jih je posluževalo izračuna evklidske razdalje med palcem in kazalcem, saj so bili koti občutljivi na nagib kamere - med kamero in roko bi moralo biti 90 stopinj. 
 
@@ -75,8 +112,6 @@ oz. za trodimenzionalne podatke
 $$
 D_t = d(J_4^t, J_8^t) = \sqrt{(x_4^t - x_8^t)^2 + (y_4^t - y_8^t)^2 + (z_4^t - z_8^t)^2}.
 $$
-
-
 
 ![Shematična označitev odvisnosti amplitude gibanj (A) od števila sličic (k).](slike/featursi.png){width=50%}
 
@@ -205,7 +240,7 @@ Nekateri so v model vklučili tudi dva demografska dejavnika - spol in starost. 
 
 ## Izbira značilk
 
-Izračunane značilke so ponavadi standardizirali z uporabo metode _StandardScalar_, kar naj bi zagotvaljalo, da vse značilke enako prispevajo k modelu in da ne bi katera izmed značilk prevadovala pri učanju modela.
+Izračunane značilke so ponavadi standardizirali z uporabo metode _StandardScalar_, kar naj bi zagotvaljalo, da vse značilke enako prispevajo k modelu in da ne bi katera izmed značilk prevadovala pri učanju modela ali pa so bile značilke normalizirane s standardno normalno porazdelitvijo(povprečje 0 in standardni odklon 1).
 
 V študijah, kjer so imeli več značilk, so iskali tudi optimalno množico značilk - značilke, ki so najpomemnejše pri klasifikaciji Parkinsonove bolezni. Iskanje optimalne množice značilk se je razlikovalo glede na glavo nalogo zo. cilj študije. Tisti, ki so imeli, poleg nabora podatkov oseb s Parkinsonovo boleznijo, še nabor podatkov zdravih(kontrolnih) oseb, so primerjali značilke, izračunane za obe skupini oseb. Značilke so bile pregledane s pomočjo statističnega testiranja, da se ocenijo porazdelitve v teh dveh skupinah oseb. Ker so značilke pokazale nenormalno porazdelitev s pomočjo Shapiro-Wilkovega testa, so lahko uporabljali Mann-Whitneyev U-test za neodvisne vzorce, za prepoznavanje značilk, ki so v obeh skupinah oseb porazdeljene različno. Uporabljali so značilke, ki so bile, glede na skupino oseb, porazdeljene različno. 
 
@@ -215,6 +250,154 @@ Algritem _Reursive Feature Elimination_(RFE) iterativno odstranjuje najmanj pome
 _SelectKBest_ razvršča značilke glede na njihov _k-score_, metriko, ki meri relevantnost in informativnost posamezne značilke glede na ciljno spremenljivko. Značlke, ki imajo najvišje _k-score_, so prednostno vključene v končni nabor značilk, medtem ko so manj informativne značilke izključene.\
 
 Nekateri avtorji so po gradnji modelov na množici izbranih značilk ugotovili, da izključitev določenih značilk in s tem poslabšanje ravnovesja med značilkami povzorči poslabšanje modela, zato so se vselej odločili za gradnjo modela na celotnem naboru značilk. 
+
+# Modeli
+
+Osredotočili smo se na pregled del, kjer so izvajali klasifikacijsko napoved, binarno ali multiklasifikacijsko. Glavni cilj študij je torej bil implementirati model za napovedovanje ocen Parkinskonove bolezni po letstvici MDS-UPDRS. Avtorji so za gradnjo in vrednotenje modelov uporabljali knjižnico _scikit-learn_ za programski jezik Python, ki ponuja orodja za različne naloge strojnega učenja.
+
+## Gradnja modelov
+
+Večina je usposobilo en sam večrazredni klasifikacijski model, kar pomeni, da izhod modela predstavlja vse ocene po lestvici MDS-UPDRS. Nekateri pa so usposobili več binarnih klasifikatorjev. Nekateri delujejo na način, da prvi model razvršča podatke videoposnetkov z oceno 0 v primerjavi z ocenami 1,2 in 3; drugi model razvršča podatke videoposnetkov z ocenama 0 ali 1 v primerjavi z ocenami 2 ali 3; in tretji model razvršča podatke videoposnetkov z ocenami 0, 1 ali 2 v primerjavi z oceno 3. Uporabljen je bil tudi pristop, kjer je prvi model razvrščal zdrave(konotrolne) osebe od oseb s Parkinsonovo boleznijo in če je ta prvi model pokazal, da podatki videoposnetka pripadajo osebi s Parkinsonovo boleznijo, je drugi model razvrstil  ocene 1 proti ocenam 2 ali 3. In če je drugi model pokazal, oceno, višjo od 1, tretji model razvrsti ocene 2 proti ocenam 3.
+
+Gradili so različne modele, med najbolj pogostimi pa so bili metoda podpornih vektorjev(SVM, _Support Vector Machine_) z različnimi jedri( _karnels_), ansambli, kot sto naključni gozdovi(RF, _Random Forest_) in XBoost ter običajni klasifikatorji, kot so odločitvena drevesa( _Decision Tree_), model $k$-najbližjih sosedov( _$k$-nearest neighbors_) in logistična regresija( _logistic regression_). V zadnjih letih pa se uporabljajo tudi globoke nevronske mreže( _deep neural networks_). \
+Zaradi razlik v postopkih, podatkovnih zbirkah, nalogah klasifikacije in uporabljenih klasifikatorjih, ne moremo podati vpogleda, kateri način modeliranja je najboljši za klasifikacijo tapkanja s prsti po lestvici MDS-UPDRS, so pa nekateri avtorji v prvi fazi raziskovanja zgradili več modelov in potem, glede na rezultate, podrobno obravnavali le glavna dva ali tri.
+
+```{r "delezi modelov", fig.cap="Deleži uporabljenih modelov v preučevanih delih za sledenje rok in zaznavanje drže roke iz videoposnetkov. Oznake: logistična regresija(LR), kNN(k-najbližjih sosedov), odločitvena drevesa(DT), konvolucijske nevronske mreže(CNN), metoda podpornih vektorjev(SVM), naključni gozdovi(RF).", fig.height = 2.5, fig.width = 5}
+LR = 2
+kNN = 4
+SVM = 6
+DT = 4
+RF = 8
+CNN = 4
+XGBoost = 3
+LightGBM = 1
+GCN = 1
+AdaBoost = 1
+OF.DDNet = 1
+FNN = 1
+Drugo = LightGBM + GCN + AdaBoost + OF.DDNet  + FNN
+
+all = LR + kNN + SVM + DT + RF + CNN + XGBoost
+
+modeli = data.frame(kategorija = c("LR", "kNN", "SVM", "DT", "RF", "CNN", "XGBoost"),
+                             st = c(LR, kNN, SVM, DT, RF, CNN, XGBoost))
+modeli$st = round(modeli$st/all * 100, 1)
+
+ggplot(modeli, aes(x = st, y = reorder(kategorija, -st))) +
+  geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+  scale_x_continuous(limits = c(0, 29)) +
+  labs(x = " ", y = " ") +
+  theme_minimal() +
+  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+```
+
+Pri izbiri hiperparametrov modelov so se posluževali različnih algoritmov, kot sta RandomizeSearchCV in GridSearchCV. Pri iskanju so uporabljali le podatke za učenje, da bi dodatno zagotovili robustnost naučenih klasifikatorjev oz. modelov. Podatki so torej bili razdeljeni na učne in testne, ponavadi v razmerju 70\%/30\% ali  80\%/20\%, modeli pa usposobljeni z uporabo $k$-kratne navzkrižne validacije( _$k$ - Cross Validation_), v večini primerov $k$ = 5, nekje celo $k$ = 10, pri čemer so uporabljeni le podatki iz učne množice podatkov.
+
+## Vrednotenje modelov
+
+Za vrednotenje modelov so standardno uporabljali štiri različne metrike, točnost( _accuracy_), natančnost( _precision_), priklic( _recall_) in F1, ki temeljijo tabela napačnih klasifikacij ( _confusion matrix_). Pogosto je bila primerjava modelov narejena tudi na podlagi ploščine pod krivuljo(AUC, _Area Under Curve_). 
+
+
+## Rezultati
+
+V spodnjih tabelah so prikazane študije, njihovi avtorji, ter glavne značilnosti študije - uporabljeni podatki, cilj študije, preučevan dejavnik Parkinsonove bolezni in uporabljeni modeli strojnega učenja.
+
+```{r}
+avtorji = c("D. L. Guarín, J. K. Wong, N. R. McFarland, A.Ramirez-Zamora", 
+            "A. Moshkova, A. Samorodov, N. Voinova, A. Volkov, E. Ivanova, E. Fedotova",
+            "Z. LI, I. Kang, M: Cai, X: Liu, Y. Wang, J. Yang",
+            "G. Amprimo, I. Rechichi, C. Ferraris, G. Olmo", 
+            "S. Srinivasan , P. Ramadass, S. K. Mathivanan, K. P.Selvam, B. D. Shivahare, M. A. Shah",
+            "J. Yanga, S. Williams, D. C. Hogg, J. E. Alty, S. D. Relton",
+            "G. Morinan, Y. Dushin, G. Sarapata, S. Rupprechter, Y. Peng, C. Girges, M. Salazar, C. Milabo, K. Sibley, T. Foltynie, I. Cociasu, L. Ricciardi, F. Baig, F. Morgante, L. A. Leyland, R. S. Weil, R. Gilron, J. O’Keeffe",
+            "G. Vignouda, C. Desjardinsc, Q. Salardainec, M. Monginc, B. Garcinc, L. Venancea, B. Degos",
+            "T. Yu, K. W. Park, M. J. McKeown, Z. J. Wang",
+            "Z. Guo, W. Zeng, T. Yu, Y. Xu, Y. Xiao, Z. Cao, X. Cao",
+            "G. Sarapata , Y. Dushin , G. Morinan , J. Ong , S. Budhdeo, B. Kainz, J. O’Keeffe",
+            "M. S. Islam, W. Rahman, A. Abdelkader, S. Lee, P. T. Yang, J. L. Purks, J. L. Adams, R. B. Schneider, E. R. Dorsey, E. Hoque",
+            "H. Li, X. Shao, C. Zhangc, X. Qian",
+            "M. Lu,  Q. Zhao, K. L. Poston, E. V. Sullivan, A. Pfefferbaum, M. Shahid, M. Katz, L. M. Kouhsari, K. Schulman, A. Milstein, J. C. Niebles, V. W. Henderson")
+
+leto = c(2024, " ", 2022, 2023, 2024, 2024, 2023, 2022, 2023, 2022, 2023, 2023, 2021, 2021)
+
+podatki = c("180 videoposnetkov(44 ZO, 123 PB)", 
+            "32 videoposnetkov(16 ZO, 16 PB)",
+            "252 videoposnetkov",
+            "95 videoposnetkov(60 ZO, 35 PB)",
+            "195 glasovnih posnetkov(48 ZO, 147 PB)",
+            "152 videoposnetkov(37 ZO, 40 PB)",
+            "1156 videoposnetkov(528 ZO, 628 PB)", 
+            "272 videoposnetkov",
+            "75 videoposnetkov(10 ZO, 65 PB)",
+            "112 videoposnetkov(11 ZO, 48 PB)",
+            "7310 videoposnetkov",
+            "250 videoposnetkov(78 ZO, 172 PB)",
+            "744 videoposnetkov",
+            "68 Videoposnetkov")
+
+cilj.studije = c("Ocene po MDS-UPDRS, večrazredna klasifikacija, več binarnih klasifikatorjev za ocene MDS-UPDRS, Razlikovanje značilk glede na ZO in PB",
+                 "Binarna klasifikacija(ima PB ali nima)",
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija, razlikovanje značilk glede na ZO in PB",
+                 "Binarna klasifikacija(ima PB ali nima)", 
+                 "Binarna klasifikacija(ima PB ali nima), razlikovanje značilk glede na ZO in PB",
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija, več binarnih klasifikatorjev za ocene MDS - UPDRS", 
+                 "Ocene po MDS - UPDRS, večrazredna klasifikacija", 
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
+                 "Ocene po MDS-UPDRS, večrazredna klasifikacija")
+
+dejavnik = c("FT", 
+             "FT, PS, D", 
+             "FT", 
+             "FT", 
+             "značilnosti glasu",
+             "FT",
+             "FT, PS, D, TT, MN",
+             "FT, MH",
+             "FT",
+             "FT",
+             "FT, PS, D, TT, MN, vstajanje s stola",
+             "FT",
+             "FT",
+             "FT")
+
+orodje = c("MediaPipe",
+           "LM sensor, Microsoft Kinect sensor, Polhemus Patriot Electromagnetic tracking sensors",
+           "MediaPipe, FCN",
+           "Azure Kinect, MediaPipe",
+           " ",
+           "videoposnetki razdelejni na 1s izrezke",
+           " ",
+           "DeepLabCut",
+           "MediaPipe",
+           "A2J",
+           "OpenPose",
+           "MediaPipe",
+           "OpenPose",
+           "OpenPose")
+modeli = c("LR", 
+           "kNN, SVM, DT, RF",
+           "CNN",
+           "kNN, SVM, RF, XGBoost",
+           "kNN, FNN, SVM, RF, DT",
+           "CNN",
+           "RF",
+           "LR, DT",
+           "DT, SVM, RF",
+           "SVM, kNN, RF, XGBoost",
+           "RF, CNN, GCN",
+           "SVR, RF, AdaBoost, XBoost, LightGBM",
+           "CNN",
+           "OF - DDNet")
+data.frame(avtorji, leto, podatki, cilj.studije, dejavnik, orodje, modeli)
+```
+
+
 
 
 <!--
