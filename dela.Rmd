@@ -3,15 +3,18 @@ title: "Sorodna dela"
 author: "Neza Krzan"
 date: "2024-11-13"
 output:
-  pdf_document:
-    fig_caption: true
-    number_sections: true
+ pdf_document:
+  fig_caption: true
+  number_sections: true
 header-includes:
 - \usepackage[slovene]{babel}
 - \usepackage{float}
 - \usepackage[T1]{fontenc}
+- \usepackage{pdflscape}
+- \usepackage{adjustbox}
+- \usepackage{graphicx}
 editor_options: 
-  chunk_output_type: inline
+ chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -30,17 +33,17 @@ Različna dela preučujejo različne znake Parkinsonove bolezni, vendar med najp
 ```{r "delezi preucevanih znakov", fig.cap="Deleži preučevanih znakov Parkinsonove bolezni v pregledanih delih.", fig.height = 2.5, fig.width = 5}
 all = 5 + 7 + 8 + 19
 preucevana.dela = data.frame(kategorija = c("tremor", "pronacija-supinacija", "gibanje rok", "tapkanje s prsti"),
-                             st = c(5/all*100, 7/all*100, 8/all*100, 19/all*100))
+               st = c(5/all*100, 7/all*100, 8/all*100, 19/all*100))
 
 library(ggplot2)
 
 ggplot(preucevana.dela, aes(x = st, y = reorder(kategorija, -st))) +
-  geom_text(aes(label = paste(round(st, 0), "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
-  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
-  scale_x_continuous(limits = c(0, 52.6)) +
-  labs(x = " ", y = " ") +
-  theme_minimal() +
-  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+ geom_text(aes(label = paste(round(st, 0), "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+ geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+ scale_x_continuous(limits = c(0, 52.6)) +
+ labs(x = " ", y = " ") +
+ theme_minimal() +
+ theme(plot.margin = margin(1, 1, 1, 2, "cm"))
 ```
 
 
@@ -49,7 +52,7 @@ Ocenjevanje telesnih gibov( _HPE – Human Pose Estimation_) celotnega telesa je
 
 # Pridobivanje videoposnetkov oz. podatkov
 
-Objektivno ocenjevanje uporablja nosljive in nenosljive tehnologije za ocenjevanje merjenih značilnosti gibanja. Obstajajo tudi mešani pristopi, pri katerih se uporablja kombinacija računalniških vida in pasivnih ali aktivnih nosljivih naprav. Podatki, zbrani na ta način, se nato analizirajo z modeli, ki ocenjujejo motorične sposobnosti pacienta.  Nosljive naprave predstavljajo uveljavljen pristop za objektivno ocenjevanje stopnje Parkinsonove bolezni in pogosto presegajo tradicionalne pristope računalniškega vida. Večina nosljivih naprav temelji na IMU, ki zaznavajo gibe rok ali na MG senzorjih za merjenje mišične aktivnosti. Tapkanje s prsti( _finger tapping_) ter proučevanje gibov rok pa bolj temelji na analizi video posnetkov in globokem učenju. \ 
+Objektivno ocenjevanje uporablja nosljive in nenosljive tehnologije za ocenjevanje merjenih značilnosti gibanja. Obstajajo tudi mešani pristopi, pri katerih se uporablja kombinacija računalniških vida in pasivnih ali aktivnih nosljivih naprav. Podatki, zbrani na ta način, se nato analizirajo z modeli, ki ocenjujejo motorične sposobnosti pacienta. Nosljive naprave predstavljajo uveljavljen pristop za objektivno ocenjevanje stopnje Parkinsonove bolezni in pogosto presegajo tradicionalne pristope računalniškega vida. Večina nosljivih naprav temelji na IMU, ki zaznavajo gibe rok ali na MG senzorjih za merjenje mišične aktivnosti. Tapkanje s prsti( _finger tapping_) ter proučevanje gibov rok pa bolj temelji na analizi video posnetkov in globokem učenju. \ 
 Ker je ta način je zelo raziskovana metoda v zadnjih letih, smo se tudi mi osredotočili na pregled del, ki temeljijo na tem pristopu.
 
 Različne študije so se poslužile zajema podatkov na različne načine(npr. tipkanje na tipkovnico, uporaba nosljive naprave nameščene na kazalcu), med najbolj priljubljenimi načini pa so videoposnetki tapkanja s prsti. 
@@ -72,15 +75,15 @@ Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobi
 
 ```{r "delezi orodij", fig.cap="Deleži uporabljenih orodij v preučevanih delih za sledenje rok in zaznavanje drže roke iz videoposnetkov. ", fig.height = 2.5, fig.width = 5}
 orodja = data.frame(kategorija = c("MMPose", "DeepLabCut", "MediaPipe", "OpenPose", "druga(kombinirana) orodja"),
-                             st = c(12, 20, 20, 24, 24))
+               st = c(12, 20, 20, 24, 24))
 
 ggplot(orodja, aes(x = st, y = reorder(kategorija, -st))) +
-  geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
-  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
-  scale_x_continuous(limits = c(0, 26.7)) +
-  labs(x = " ", y = " ") +
-  theme_minimal() +
-  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+ geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+ geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+ scale_x_continuous(limits = c(0, 26.7)) +
+ labs(x = " ", y = " ") +
+ theme_minimal() +
+ theme(plot.margin = margin(1, 1, 1, 2, "cm"))
 ```
 
 Dogajalo se je tudi, da zgornja orodja niso zaznala vseh sličic videoposnetka in so podatki imeli mankajoče točke skeleta posameznih sličic. Nekateri so se problema lotili z linearno interpolacijo, ki so jo uporabili le v primeru, ko je orodje zaznalo prejšnjo in naslednjo sličico. Posnetke, kjer orodja niso zaznala več sličic, so odstranili iz podatkov. 
@@ -212,7 +215,7 @@ Zastoj je bil ponavadi opredeljen kot trenutek popolne ustavitve, oklevanje pa k
 
 $$
 F_{hh} = \begin{cases}
-1, \text{ če } \lvert \hat{p}_n - p_n \lvert \ge \theta \\
+1, \text{ če } \lvert \hat{p}_n - p_n \lvert \ge \theta \
 0, \text{ če } \lvert \hat{p}_n - p_n \lvert < \theta
 \end{cases},
 $$
@@ -257,7 +260,7 @@ Osredotočili smo se na pregled del, kjer so izvajali klasifikacijsko napoved, b
 
 ## Gradnja modelov
 
-Večina je usposobilo en sam večrazredni klasifikacijski model, kar pomeni, da izhod modela predstavlja vse ocene po lestvici MDS-UPDRS. Nekateri pa so usposobili več binarnih klasifikatorjev. Nekateri delujejo na način, da prvi model razvršča podatke videoposnetkov z oceno 0 v primerjavi z ocenami 1,2 in 3; drugi model razvršča podatke videoposnetkov z ocenama 0 ali 1 v primerjavi z ocenami 2 ali 3; in tretji model razvršča podatke videoposnetkov z ocenami 0, 1 ali 2 v primerjavi z oceno 3. Uporabljen je bil tudi pristop, kjer je prvi model razvrščal zdrave(konotrolne) osebe od oseb s Parkinsonovo boleznijo in če je ta prvi model pokazal, da podatki videoposnetka pripadajo osebi s Parkinsonovo boleznijo, je drugi model razvrstil  ocene 1 proti ocenam 2 ali 3. In če je drugi model pokazal, oceno, višjo od 1, tretji model razvrsti ocene 2 proti ocenam 3.
+Večina je usposobilo en sam večrazredni klasifikacijski model, kar pomeni, da izhod modela predstavlja vse ocene po lestvici MDS-UPDRS. Nekateri pa so usposobili več binarnih klasifikatorjev. Nekateri delujejo na način, da prvi model razvršča podatke videoposnetkov z oceno 0 v primerjavi z ocenami 1,2 in 3; drugi model razvršča podatke videoposnetkov z ocenama 0 ali 1 v primerjavi z ocenami 2 ali 3; in tretji model razvršča podatke videoposnetkov z ocenami 0, 1 ali 2 v primerjavi z oceno 3. Uporabljen je bil tudi pristop, kjer je prvi model razvrščal zdrave(konotrolne) osebe od oseb s Parkinsonovo boleznijo in če je ta prvi model pokazal, da podatki videoposnetka pripadajo osebi s Parkinsonovo boleznijo, je drugi model razvrstil ocene 1 proti ocenam 2 ali 3. In če je drugi model pokazal, oceno, višjo od 1, tretji model razvrsti ocene 2 proti ocenam 3.
 
 Gradili so različne modele, med najbolj pogostimi pa so bili metoda podpornih vektorjev(SVM, _Support Vector Machine_) z različnimi jedri( _karnels_), ansambli, kot sto naključni gozdovi(RF, _Random Forest_) in XBoost ter običajni klasifikatorji, kot so odločitvena drevesa( _Decision Tree_), model $k$-najbližjih sosedov( _$k$-nearest neighbors_) in logistična regresija( _logistic regression_). V zadnjih letih pa se uporabljajo tudi globoke nevronske mreže( _deep neural networks_). \
 Zaradi razlik v postopkih, podatkovnih zbirkah, nalogah klasifikacije in uporabljenih klasifikatorjih, ne moremo podati vpogleda, kateri način modeliranja je najboljši za klasifikacijo tapkanja s prsti po lestvici MDS-UPDRS, so pa nekateri avtorji v prvi fazi raziskovanja zgradili več modelov in potem, glede na rezultate, podrobno obravnavali le glavna dva ali tri.
@@ -275,24 +278,24 @@ GCN = 1
 AdaBoost = 1
 OF.DDNet = 1
 FNN = 1
-Drugo = LightGBM + GCN + AdaBoost + OF.DDNet  + FNN
+Drugo = LightGBM + GCN + AdaBoost + OF.DDNet + FNN
 
 all = LR + kNN + SVM + DT + RF + CNN + XGBoost
 
 modeli = data.frame(kategorija = c("LR", "kNN", "SVM", "DT", "RF", "CNN", "XGBoost"),
-                             st = c(LR, kNN, SVM, DT, RF, CNN, XGBoost))
+               st = c(LR, kNN, SVM, DT, RF, CNN, XGBoost))
 modeli$st = round(modeli$st/all * 100, 1)
 
 ggplot(modeli, aes(x = st, y = reorder(kategorija, -st))) +
-  geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
-  geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
-  scale_x_continuous(limits = c(0, 29)) +
-  labs(x = " ", y = " ") +
-  theme_minimal() +
-  theme(plot.margin = margin(1, 1, 1, 2, "cm"))
+ geom_text(aes(label = paste(st, "%")), hjust = -0.05, vjust = 0.5, size = 3) + 
+ geom_bar(stat = "identity", fill = "skyblue", color = "skyblue", width = 0.7) +
+ scale_x_continuous(limits = c(0, 29)) +
+ labs(x = " ", y = " ") +
+ theme_minimal() +
+ theme(plot.margin = margin(1, 1, 1, 2, "cm"))
 ```
 
-Pri izbiri hiperparametrov modelov so se posluževali različnih algoritmov, kot sta RandomizeSearchCV in GridSearchCV. Pri iskanju so uporabljali le podatke za učenje, da bi dodatno zagotovili robustnost naučenih klasifikatorjev oz. modelov. Podatki so torej bili razdeljeni na učne in testne, ponavadi v razmerju 70\%/30\% ali  80\%/20\%, modeli pa usposobljeni z uporabo $k$-kratne navzkrižne validacije( _$k$ - Cross Validation_), v večini primerov $k$ = 5, nekje celo $k$ = 10, pri čemer so uporabljeni le podatki iz učne množice podatkov.
+Pri izbiri hiperparametrov modelov so se posluževali različnih algoritmov, kot sta RandomizeSearchCV in GridSearchCV. Pri iskanju so uporabljali le podatke za učenje, da bi dodatno zagotovili robustnost naučenih klasifikatorjev oz. modelov. Podatki so torej bili razdeljeni na učne in testne, ponavadi v razmerju 70\%/30\% ali 80\%/20\%, modeli pa usposobljeni z uporabo $k$-kratne navzkrižne validacije( _$k$ - Cross Validation_), v večini primerov $k$ = 5, nekje celo $k$ = 10, pri čemer so uporabljeni le podatki iz učne množice podatkov.
 
 ## Vrednotenje modelov
 
@@ -301,101 +304,171 @@ Za vrednotenje modelov so standardno uporabljali štiri različne metrike, točn
 
 ## Rezultati
 
-V spodnjih tabelah so prikazane študije, njihovi avtorji, ter glavne značilnosti študije - uporabljeni podatki, cilj študije, preučevan dejavnik Parkinsonove bolezni in uporabljeni modeli strojnega učenja.
+V spodnjih tabelah so prikazane študije, njihovi avtorji, ter glavne značilnosti študije - uporabljeni podatki, cilj študije, preučevan dejavnik Parkinsonove bolezni in uporabljeni modeli strojnega učenja. Pri vsaki študiji, je prvi napisan model v stoplcu "Modeli", model, ki je dosegel najvišjo točnost in bil predstavljen kot končni releavntni model. Na spodnjem grafu lahko še vidimo točnost najboljših modelov v študijah iz tabele.
 
-```{r}
-avtorji = c("D. L. Guarín, J. K. Wong, N. R. McFarland, A.Ramirez-Zamora", 
-            "A. Moshkova, A. Samorodov, N. Voinova, A. Volkov, E. Ivanova, E. Fedotova",
-            "Z. LI, I. Kang, M: Cai, X: Liu, Y. Wang, J. Yang",
-            "G. Amprimo, I. Rechichi, C. Ferraris, G. Olmo", 
-            "S. Srinivasan , P. Ramadass, S. K. Mathivanan, K. P.Selvam, B. D. Shivahare, M. A. Shah",
-            "J. Yanga, S. Williams, D. C. Hogg, J. E. Alty, S. D. Relton",
-            "G. Morinan, Y. Dushin, G. Sarapata, S. Rupprechter, Y. Peng, C. Girges, M. Salazar, C. Milabo, K. Sibley, T. Foltynie, I. Cociasu, L. Ricciardi, F. Baig, F. Morgante, L. A. Leyland, R. S. Weil, R. Gilron, J. O’Keeffe",
-            "G. Vignouda, C. Desjardinsc, Q. Salardainec, M. Monginc, B. Garcinc, L. Venancea, B. Degos",
-            "T. Yu, K. W. Park, M. J. McKeown, Z. J. Wang",
-            "Z. Guo, W. Zeng, T. Yu, Y. Xu, Y. Xiao, Z. Cao, X. Cao",
-            "G. Sarapata , Y. Dushin , G. Morinan , J. Ong , S. Budhdeo, B. Kainz, J. O’Keeffe",
-            "M. S. Islam, W. Rahman, A. Abdelkader, S. Lee, P. T. Yang, J. L. Purks, J. L. Adams, R. B. Schneider, E. R. Dorsey, E. Hoque",
-            "H. Li, X. Shao, C. Zhangc, X. Qian",
-            "M. Lu,  Q. Zhao, K. L. Poston, E. V. Sullivan, A. Pfefferbaum, M. Shahid, M. Katz, L. M. Kouhsari, K. Schulman, A. Milstein, J. C. Niebles, V. W. Henderson")
+```{r fig.cap="Točnost modelov v preučevanih študijah.", fig.height=2.5, fig.width=5}
+leto = c(2024, 2020, 2022, 2023, 2024, 2024, 2023, 2022, 2023, 2022, 2023, 2023, 2021, 2021)
+model = c("RF", "CNN", "kNN", "FNN", "CNN", "RF", "DT", "DT", "SVM", "CNN", "XBoost", "CNN", "OF-DDNet")
+tocnost = c(90.4, 79.7, 94.4, 92.12, 69, 84, 60.9, 93, 81.2, 98.74, 61.33, 98.3, 48)
+kategorija = c("A", "A", "A", "A", "B", "B", "A", "B", "A", "C", "A", "D", "A")
 
-leto = c(2024, " ", 2022, 2023, 2024, 2024, 2023, 2022, 2023, 2022, 2023, 2023, 2021, 2021)
+data.tocnost = data.frame(model, tocnost, kategorija)
+data.tocnost$model = as.factor(data.tocnost$model)
 
-podatki = c("180 videoposnetkov(44 ZO, 123 PB)", 
-            "32 videoposnetkov(16 ZO, 16 PB)",
-            "252 videoposnetkov",
-            "95 videoposnetkov(60 ZO, 35 PB)",
-            "195 glasovnih posnetkov(48 ZO, 147 PB)",
-            "152 videoposnetkov(37 ZO, 40 PB)",
-            "1156 videoposnetkov(528 ZO, 628 PB)", 
-            "272 videoposnetkov",
-            "75 videoposnetkov(10 ZO, 65 PB)",
-            "112 videoposnetkov(11 ZO, 48 PB)",
-            "7310 videoposnetkov",
-            "250 videoposnetkov(78 ZO, 172 PB)",
-            "744 videoposnetkov",
-            "68 Videoposnetkov")
+ggplot(data.tocnost, aes(x = model , y = tocnost, fill = kategorija)) +
+ geom_bar(stat = "identity", position =  position_dodge(width = 0.8), width = 0.7) +
+ #scale_y_continuous(limits = c(0, 110)) +
+ labs(x = "modeli", y = "točnos(%)") +
+ theme_minimal() +
+ theme(legend.position = "none") 
+```
 
-cilj.studije = c("Ocene po MDS-UPDRS, večrazredna klasifikacija, več binarnih klasifikatorjev za ocene MDS-UPDRS, Razlikovanje značilk glede na ZO in PB",
-                 "Binarna klasifikacija(ima PB ali nima)",
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija, razlikovanje značilk glede na ZO in PB",
-                 "Binarna klasifikacija(ima PB ali nima)", 
-                 "Binarna klasifikacija(ima PB ali nima), razlikovanje značilk glede na ZO in PB",
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija, več binarnih klasifikatorjev za ocene MDS - UPDRS", 
-                 "Ocene po MDS - UPDRS, večrazredna klasifikacija", 
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija", 
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija",
-                 "Ocene po MDS-UPDRS, večrazredna klasifikacija")
+\newpage
+
+```{r, results=T}
+avtorji = c("D. L. Guarín in drugi", #J. K. Wong, N. R. McFarland, A.Ramirez-Zamora", 
+      "A. Moshkova in drugi", #A. Samorodov, N. Voinova, A. Volkov, E. Ivanova, E. Fedotova",
+      "Z. LI in drugi", #I. Kang, M: Cai, X: Liu, Y. Wang, J. Yang",
+      "G. Amprimo in drugi", #I. Rechichi, C. Ferraris, G. Olmo", 
+      "S. Srinivasan in drugi", #P. Ramadass, S. K. Mathivanan, K. P.Selvam, B. D. Shivahare, M. A. Shah",
+      "J. Yanga in drugi", #S. Williams, D. C. Hogg, J. E. Alty, S. D. Relton",
+      "G. Morinan in drugi", #Y. Dushin, G. Sarapata, S. Rupprechter, Y. Peng, C. Girges, M. Salazar, C. Milabo, K. Sibley, T. Foltynie, I. #Cociasu, L. Ricciardi, F. Baig, F. Morgante, L. A. Leyland, R. S. Weil, R. Gilron, J. O’Keeffe",
+      "G. Vignouda in drugi", #C. Desjardinsc, Q. Salardainec, M. Monginc, B. Garcinc, L. Venancea, B. Degos",
+      "T. Yu in drugi", #K. W. Park, M. J. McKeown, Z. J. Wang",
+      "Z. Guo in drugi", #W. Zeng, T. Yu, Y. Xu, Y. Xiao, Z. Cao, X. Cao",
+      "G. Sarapata in drugi", #Y. Dushin , G. Morinan , J. Ong , S. Budhdeo, B. Kainz, J. O’Keeffe",
+      "M. S. Islam in drugi", #W. Rahman, A. Abdelkader, S. Lee, P. T. Yang, J. L. Purks, J. L. Adams, R. B. Schneider, E. R. Dorsey, E. Hoque",
+      "H. Li in drugi", #X. Shao, C. Zhangc, X. Qian",
+      "M. Lu in drugi") #Q. Zhao, K. L. Poston, E. V. Sullivan, A. Pfefferbaum, M. Shahid, M. Katz, L. M. Kouhsari, K. Schulman, A. Milstein, J. C. Niebles, V. W. Henderson")
+
+leto = c(2024, 2020, 2022, 2023, 2024, 2024, 2023, 2022, 2023, 2022, 2023, 2023, 2021, 2021)
+
+podatki = c("180 videoposnetkov \n(44 ZO, 123 PB)", 
+      "32 videoposnetkov \n(16 ZO, 16 PB)",
+      "252 videoposnetkov",
+      "95 videoposnetkov \n(60 ZO, 35 PB)",
+      "195 glasovnih posnetkov \n(48 ZO, 147 PB)",
+      "152 videoposnetkov \n(37 ZO, 40 PB)",
+      "1156 videoposnetkov \n(528 ZO, 628 PB)", 
+      "272 videoposnetkov",
+      "75 videoposnetkov \n(10 ZO, 65 PB)",
+      "112 videoposnetkov \n(11 ZO, 48 PB)",
+      "7310 videoposnetkov",
+      "250 videoposnetkov \n(78 ZO, 172 PB)",
+      "744 videoposnetkov",
+      "68 Videoposnetkov")
+
+cilj.studije = c("Ocene po MDS-UPDRS, \nVK, \nveč BK za ocene MDS-UPDRS, \nrazlikovanje značilk (OZ-PB)",
+         "Binarna klasifikacija(ima PB ali nima)",
+         "Ocene po MDS-UPDRS, \nVK",
+         "Ocene po MDS-UPDRS, \nVK, \nrazlikovanje značilk (OZ-PB)",
+         "Binarna klasifikacija(ima PB ali nima)", 
+         "Binarna klasifikacija(ima PB ali nima), \nrazlikovanje značilk (OZ-PB)",
+         "Ocene po MDS-UPDRS, \nVK, \nveč BK za ocene MDS-UPDRS", 
+         "Ocene po MDS - UPDRS, \nVK", 
+         "Ocene po MDS-UPDRS, \nVK", 
+         "Ocene po MDS-UPDRS, \nVK", 
+         "Ocene po MDS-UPDRS, \nVK",
+         "Ocene po MDS-UPDRS, \nVK", 
+         "Ocene po MDS-UPDRS, \nVK",
+         "Ocene po MDS-UPDRS, \nVK")
 
 dejavnik = c("FT", 
-             "FT, PS, D", 
-             "FT", 
-             "FT", 
-             "značilnosti glasu",
-             "FT",
-             "FT, PS, D, TT, MN",
-             "FT, MH",
-             "FT",
-             "FT",
-             "FT, PS, D, TT, MN, vstajanje s stola",
-             "FT",
-             "FT",
-             "FT")
+       "FT, \nPS, \nD", 
+       "FT", 
+       "FT", 
+       "značilnosti glasu",
+       "FT",
+       "FT, \nPS, \nD, \nTT, \nMN",
+       "FT, \nMH",
+       "FT",
+       "FT",
+       "FT, \nPS, \nD, \nTT, \nMN, \nvstajanje s stola",
+       "FT",
+       "FT",
+       "FT")
 
 orodje = c("MediaPipe",
-           "LM sensor, Microsoft Kinect sensor, Polhemus Patriot Electromagnetic tracking sensors",
-           "MediaPipe, FCN",
-           "Azure Kinect, MediaPipe",
-           " ",
-           "videoposnetki razdelejni na 1s izrezke",
-           " ",
-           "DeepLabCut",
-           "MediaPipe",
-           "A2J",
-           "OpenPose",
-           "MediaPipe",
-           "OpenPose",
-           "OpenPose")
+      "LM sensor, \nMicrosoft Kinect sensor, \nPolhemus Patriot Electromagnetic tracking sensors",
+      "MediaPipe, \nFCN",
+      "Azure Kinect, \nMediaPipe",
+      " ",
+      "videoposnetki(1s izrezki)",
+      " ",
+      "DeepLabCut",
+      "MediaPipe",
+      "A2J",
+      "OpenPose",
+      "MediaPipe",
+      "OpenPose",
+      "OpenPose")
 modeli = c("LR", 
-           "kNN, SVM, DT, RF",
-           "CNN",
-           "kNN, SVM, RF, XGBoost",
-           "kNN, FNN, SVM, RF, DT",
-           "CNN",
-           "RF",
-           "LR, DT",
-           "DT, SVM, RF",
-           "SVM, kNN, RF, XGBoost",
-           "RF, CNN, GCN",
-           "SVR, RF, AdaBoost, XBoost, LightGBM",
-           "CNN",
-           "OF - DDNet")
-data.frame(avtorji, leto, podatki, cilj.studije, dejavnik, orodje, modeli)
+      "RF, \nSVM, \nDT, \nkNN",
+      "CNN",
+      "kNN, \nSVM, \nRF, \nXGBoost",
+      "FNN, \nkNN, \nSVM, \nRF, \nDT",
+      "CNN",
+      "RF",
+      "DT, \nLR",
+      "DT, \nSVM, \nRF",
+      "SVM, \nkNN, \nRF, \nXGBoost",
+      "CNN, \nRF, \nGCN",
+      "XBoost, \nRF, \nAdaBoost, \nSVR, \nLightGBM",
+      "CNN",
+      "OF - DDNet")
+
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+dela = data.frame(avtorji, leto, podatki, cilj.studije, dejavnik, orodje, modeli) %>% arrange(leto)
+dela$podatki = linebreak(dela$podatki)
+dela$cilj.studije  = linebreak(dela$cilj.studije)
+dela$orodje = linebreak(dela$orodje)
+dela$modeli = linebreak(dela$modeli)
+dela$dejavnik = linebreak(dela$dejavnik)
+
+kable(dela[1:11,], 
+   col.names = c("Avtorji", "Leto", "Podatki", "Cilj študije", "Preučevani dejavnik/i PB", "Orodje", "Modeli"),
+   format = "latex", 
+   caption = "Pregledane študije. Oznake: zdrave(kontrolne) osebe(ZO), osebe s Parkinsonovo boleznijo(PB), večrazredna klasifikacija(VK), binarna klasifikacija(BK), tapkanje s prsti(FT), pronacija - spinacija(PS), odpiranje in zapiranje dlani(D), tapkanje s prsti na nogi(TT), mobilnost noge(MN), logistična regresija(LR), k-najbližjih sosedov(kNN), odločitvena drevesa(DT), konvolucijske nevronske mreže(CNN), metoda podpornih vektorjev(SVM), naključni gozdovi(RF).", 
+   escape = FALSE, booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+landscape()
+
+kable(dela[12:14,], 
+   col.names = c("Avtorji", "Leto", "Podatki", "Cilj študije", "Preučevani dejavnik/i PB", "Orodje", "Modeli"),
+   format = "latex", 
+   caption = "(Nadaljevanje prejšnje tabele.)Pregledane študije. Oznake: zdrave(kontrolne) osebe(ZO), osebe s Parkinsonovo boleznijo(PB), večrazredna klasifikacija(VK), binarna klasifikacija(BK), tapkanje s prsti(FT), pronacija - spinacija(PS), odpiranje in zapiranje dlani(D), tapkanje s prsti na nogi(TT), mobilnost noge(MN), logistična regresija(LR), k-najbližjih sosedov(kNN), odločitvena drevesa(DT), konvolucijske nevronske mreže(CNN), metoda podpornih vektorjev(SVM), naključni gozdovi(RF).", 
+   escape = FALSE, booktabs = TRUE) %>%
+  kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+landscape()
+
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
