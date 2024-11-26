@@ -76,7 +76,6 @@ Sledenje gibom rok na podlagi videoposnetkov oz. ocena pozicije rok(*hand pose e
 
 ![COCO Hand model, tipična konfiguracija sklepov v orodjih *OpenPose* in *MediaPipe*.](slike/skelet_roke.png){width=50%}
 
-
 Torej zazanavanje drže roke oziroma položaj sklepov je večina študij pridobila s pomočjo orodij *MediaPipe*, *OpenPose*, *DeepLabCut* in *MMPose*, ki so v zadnjih letih najbolj uporabna. Za roko vrnejo skelet 21 točk iz katerih so potem računali različne značilke.
 
 ```{r "delezi orodij", fig.cap="Deleži uporabljenih orodij v preučevanih delih za sledenje rok in zaznavanje drže roke iz videoposnetkov. ", fig.height = 2.5, fig.width = 5}
@@ -142,44 +141,6 @@ Amplituda in hitrost sta dve najbolj običajni značilki, ki se analizirata za o
 ![Shematična označitev odvisnosti amplitude gibanj(A) od števila sličic(t).](slike/amplituda_znacilke.png){width=90%}
 
 S pomočjo zgornjih definicij so bile pogosto izračunane povprečna, maksimalna in minimalna hitrost odpiranja in zapiranja ter amplituda odpiranja in zapiranja, standardni odklon amplitude odpiranja in zapiranja, povprečje in koeficient variacije amplitude gibanja, hitrosti gibanja(amplituda gibanja/trajanje gibanja), hitrosti gibanja pri odpiranju in zapiranju, hitrost gibanja (število pritiskov glede na čas) in upad amplitude(povprečna amplituda v prvi polovici poskusa v primerjavi s povprečno amplitudo v drugi polovici poskusa) ter prelomna točka amplitude(*breakpoint*, $F_{amp- bp}$) in hitrosti(*breakpoint*, $F_{vel- bp}$).
-
-<!--
-```{r, results = F}
-x <- seq(0, 2 * pi, length.out = 100) 
-y <- sin(5*x) + 1.2                    
-
-data <- data.frame(x = x, y = y)
-
-ggplot(data, aes(x = x, y = y)) +
-  geom_line(color = "#0072B2", size = 1) +  
-  labs(title = "", x = "t", y = "A") +
-  theme_minimal() +  
-  scale_x_continuous(limits = c(0, 6)) +
-  scale_y_continuous(limits = c(0, 3)) +
-   theme(
-    plot.title = element_text(hjust = 0.5),  
-    panel.grid.major = element_blank(),      
-    panel.grid.minor = element_blank()) +
-  geom_segment(aes(x = 0, xend = 6, y = 0, yend = 0), 
-               arrow = arrow(length = unit(0.2, "cm")), color = "black") + 
-  geom_segment(aes(x = 0, xend = 0, y = 0, yend = 3), 
-               arrow = arrow(length = unit(0.2, "cm")), color = "black") +
-  geom_segment(aes(x = 2.81, xend = 2.82, y = 0, yend = sin(5 * 2.81) + 1.2), 
-               linetype = "dashed", color = "grey40") +
-  geom_point(aes(x = 2.82, y = sin(5 * 2.82) + 1.2), color = "grey40", size = 2)  +
-  geom_segment(aes(x = 4.08, xend = 4.08, y = 0, yend = sin(5 * 4.08) + 1.2), 
-               linetype = "dashed", color = "grey40") +
-  geom_point(aes(x = 4.08, y = sin(5 * 4.08) + 1.2), color = "grey40", size = 2) +
-  geom_segment(aes(x = 2.2, xend = 2.2, y = 0, yend = sin(5 * 2.2) + 1.2), 
-               linetype = "dashed", color = "grey40") +
-  geom_point(aes(x = 2.2, y = sin(5 * 2.2) + 1.2), color = "grey40", size = 2) +
-  geom_segment(aes(x = 3.454, xend = 3.454, y = 0, yend = sin(5 * 3.454) + 1.2), 
-               linetype = "dashed", color = "grey40") +
-  geom_point(aes(x = 3.454, y = sin(5 * 3.454) + 1.2), color = "grey40", size = 2) 
-
-
-```
--->
 
 ## Utrujenost oz. zastoj in oklevanje(*halt and hesitation*)
 Utrujenost oz. zastoj in oklevanje sta lastnosti pri kateri imamo več različnih pristopov, uporabljenih za njeno oceno. \
@@ -422,99 +383,3 @@ kable(dela[12:14,],
 landscape()
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-## Orodja
-
-V zadnjih letih so najbolj uporabna orodja _OpenPose_, _DeepLabCut_, _MediaPipe_ in _MMPose_.
-
-### OpenPose
-
-OpenPose je orodje za sledenje človeške drže in gibanja na podlagi slik ali videoposnetkov. Omogoča prepoznavanje ter sledenje različnih ključnih točk na telesu, kot so sklepi, obrazne poteze, roke in stopala. Uporablja računalniški vid in nevronske mreže za analizo vizualnih podatkov ter generira koordinate teh ključnih točk v prostoru.
-
-Večina se uporablja osnovna 2D predstavitev drže iz OpenPose za regresijo MDS-UPDRS ocen s strojnim učenjem ali globokim učenjem ter za primerjavo značilk pri Parkinsonovih bolnikih in zdravih kontrolnih osebah s pomočjo statističnega testiranja. V eni izmed študij so validirali tudi izpeljane značilke s standardnimi pristopi, tj. IMU in prišli do korelacije med meritvami OpenPose in IMU, medtem ko v drugi preverjajo zgolj skladnost med ocenami modelov in subjektivnimi ocenami nevrologov. Rezultati študij kažejo na dobro skladnost.
-
-### DeepLabCut
-
-DeepLabCut je oorodje za sledenje gibanju z uporabo globokega učenja, ki je posebej zasnovan za natančno sledenje ključnih točk telesa ali specifičnih delov telesa na slikah in videoposnetkih. Z uporabo Transfer Learning je mogoče prilagoditi vnaprej usposobljene konvolucijske nevronske mreže (CNN) za ocenjevanje drže z uporabo ročno označenih podmnožic slikovnih okvirjev iz video posnetkov. Na primer, pri sledenju rok lahko označimo celoten COCO skeletni model roke ali le njegov del in jih preučimo. Njegova natančnost je odvisa od omejene podmnožice označenih podatkov za usposabljanje in kakovost označenih podatkov.
-
-V večini študij je uporabljeno preprosto 2D sledenje RGB videoposnetkov za regresijo MDS-UPDRS ocen, nekateri tudi oceno bradikinezije.
-
-### MediaPipe
-MediaPipe je orodje, ki uporabljajo napredne tehnike računalniškega vida in strojnega učenja. Vsebuje modul, imenovan Google MediaPipe Hand (GMH) [88], ki temelji na pristopu globokega učenja za sledenje rokam. 
-
-Uporablja se za različne namene, vključno z regresijo MDS-UPDRS ocen, prepoznavanjem Parkinsonove bolezni ter oceno tremorja v mirovanju. Večina del ga izkorišča za 2D sledenje, nekateri za 3D ter RGB/RGB-Depth.
-
-### MMPose
-MMPose je odprtokodna knjižnica za prepoznavanje in sledenje telesni drži. Zasnovana je za naloge sledenja telesu(*pose estimation_) in analize gibanja, ki vključujejo prepoznavanje ključnih točk na telesu, obrazu, rokah in stopalih iz slik ali videoposnetkov.
-
-Večina ga uporabljajo s kombiniranjem različnih arhitektur - 2D in 3D sledenje na RGB videoposnetkih, preprosto konvolucijsko mrežo. Uporablja se tako za regresijo MDS-UPDRS ocen kot tudi za oceno bradikinezije.
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-Del v drugi skupini (3 študije) uporablja ročno izdelano ekstrakcijo lastnosti in plitvo učenje za izvajanje prepoznavanja Parkinsonove bolezni [78,125,134]. Ta uporaba običajno služi kot preliminarna preiskava, preden se lotijo globlje analize patoloških subjektov.
-
-Tretja skupina (7 del) se večinoma osredotoča na oceno tresenja [131,133,143], bradikinezije [113,124,144] ali obojega [115]. Ta cilj je v teh študijah dosežen bodisi z raziskovanjem korelacije med ustreznimi ročno izdelanimi lastnostmi, izvlečenimi iz podatkov o sledenju, in kliničnimi rezultati [113,115,124,133], bodisi z raziskovanjem, kako so te lastnosti delovale pri avtomatskem prepoznavanju simptomov [131,143,144].
-
-Skupina Drugo vsebuje eno samo delo [126], ki je poskušalo avtomatsko oceniti vrsto gibov rok, ki jih opravljajo pacienti s Parkinsonovo boleznijo med operacijo globoke možganske stimulacije (DBS).
-
-najprej pridobijo ročno izdelane lastnosti iz podatkov o sledenju rok in nato te vnesejo v plitve [78,79,81,105,112,118,125,146,147] ali globoke [132,141] modele, do rešitev, ki neposredno (ali po minimalni predobdelavi) uporabijo podatke o sledenju kot vhod v regresijske globoke učne mreže [116,117,142].
--->
-
-
-
-
-
-
