@@ -30,7 +30,7 @@ library(knitr)
 library(kableExtra)
 ```
 
-Ocenjevanje resnosti Parkinsonove bolezni trenutno temelji na nevroloških pregledih v abulanti, kjer pacient izvaja motorične naloge, ki so opisane v lestvici *Movement Disorder Society-Unified Parkinson's Disease Rating Scale* (MDS-UPDRS). Ker so pregledi in ocene subjektivni, je raziskovanje objektivnega ocenjevanja pogosto raziskovana tema z različnimi rešitvami.
+Ocenjevanje resnosti Parkinsonove bolezni trenutno temelji na nevroloških pregledih v ambulanti, kjer pacient izvaja motorične naloge, ki so opisane v lestvici *Movement Disorder Society-Unified Parkinson's Disease Rating Scale* (MDS-UPDRS). Ker so pregledi in ocene subjektivni, je raziskovanje objektivnega ocenjevanja pogosto raziskovana tema z različnimi rešitvami.
 
 # Preučevane naloge v dosedanjih študijah
 
@@ -98,7 +98,6 @@ Identificirali so tudi posamična gibanja tapkanja s prsti - cikel tapkanja. Nek
 Orodja so v podatke vpeljala visokofrekvenčne šume, ki nastanejo zaradi prileganja skeleta orodja roki in tremorja oseb s Parkinsonovo boleznijo. Pridobljene razdalje oz. kote so zato zgladili na različne načine.
 
 Nekatere študije so se lotile tudi problema neravnovesja razredov - večina je bila uporabljen tehnika SMOTE(*Synthetic Minority Oversampling Technique*). S to tehniko so povečali manj zastopane razrede in zmanjšali prekomerno zastopane razrede v njihovih podatkih. 
-
 Pred računanjem značilk so nekateri avtorji, predvsem tist, ki se niso posluževali ročnega računanja značilk, podatke normalizirali z uporabo povprečja in standardne deviacije podatkov(Z-score normalization).
 
 # Značilke

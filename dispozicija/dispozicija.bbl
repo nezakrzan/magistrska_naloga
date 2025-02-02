@@ -1,0 +1,579 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{Amprimoa}{article}{}
+      \name{author}{4}{}{%
+        {{hash=b6acccae9d84fd0f31e4745ad535fb68}{%
+           family={Amprimoa},
+           familyi={A\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=139f397ddc32eaaa630cca78e3b40702}{%
+           family={Masi},
+           familyi={M\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=6a5268ce9354606e7acaeecb9ad0a595}{%
+           family={Olmo},
+           familyi={O\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=5b47b2653424270cbe4ad6f8698bb329}{%
+           family={Ferraris},
+           familyi={F\bibinitperiod},
+           given={Cl.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{10631e0eff132973a28dce63b5d2ffe2}
+      \strng{fullhash}{3b296b49e4dd31179f54710488d014e6}
+      \strng{bibnamehash}{10631e0eff132973a28dce63b5d2ffe2}
+      \strng{authorbibnamehash}{10631e0eff132973a28dce63b5d2ffe2}
+      \strng{authornamehash}{10631e0eff132973a28dce63b5d2ffe2}
+      \strng{authorfullhash}{3b296b49e4dd31179f54710488d014e6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Artificial Intelligence In Medicine}
+      \field{number}{154}
+      \field{title}{Deep Learning for hand tracking in Parkinson’s Disease video-based assessment: Current and future perspectives}
+      \field{year}{2024}
+    \endentry
+    \entry{Bhidayasiri}{article}{}
+      \name{author}{2}{}{%
+        {{hash=3bd2a24c2a819e7eb8e4704ef2f2358f}{%
+           family={Bhidayasiri},
+           familyi={B\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=95ad0d203b6ac4d0b49bcb91b530c264}{%
+           family={Tarsy},
+           familyi={T\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Current Clinical Neurology}%
+      }
+      \strng{namehash}{4f14007f5d00784161c276cbbf254d21}
+      \strng{fullhash}{4f14007f5d00784161c276cbbf254d21}
+      \strng{bibnamehash}{4f14007f5d00784161c276cbbf254d21}
+      \strng{authorbibnamehash}{4f14007f5d00784161c276cbbf254d21}
+      \strng{authornamehash}{4f14007f5d00784161c276cbbf254d21}
+      \strng{authorfullhash}{4f14007f5d00784161c276cbbf254d21}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Movement Disorders: A Video Atlas}
+      \field{title}{Parkinson’s Disease: Hoehn and Yahr Scale}
+      \field{year}{2012}
+    \endentry
+    \entry{Goetz}{article}{}
+      \name{author}{25}{}{%
+        {{hash=702453d876b8b1e31f323f748b924112}{%
+           family={Goetz},
+           familyi={G\bibinitperiod},
+           given={C.\bibnamedelimi G.},
+           giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=eecb36b4c8386bda52f90762c35e86c2}{%
+           family={Tilley},
+           familyi={T\bibinitperiod},
+           given={B.\bibnamedelimi C.},
+           giveni={B\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=f296ecc62624abc107472aafacf7393f}{%
+           family={Shaftman},
+           familyi={S\bibinitperiod},
+           given={S.\bibnamedelimi R.},
+           giveni={S\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=d37e9b468bee972976defb74b3a75587}{%
+           family={Stebbins},
+           familyi={S\bibinitperiod},
+           given={G.\bibnamedelimi T.},
+           giveni={G\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=4e6055682f7510c566a5f5722146e20e}{%
+           family={Fahn},
+           familyi={F\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b63ca249cd28761dac0448675dbd5e09}{%
+           family={Martinez-Martin},
+           familyi={M\bibinithyphendelim M\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=9432eb40d9a4ecdb539603f4792426d8}{%
+           family={Poewe},
+           familyi={P\bibinitperiod},
+           given={W.},
+           giveni={W\bibinitperiod}}}%
+        {{hash=a434bfb65d426a06e6d0f712152ac421}{%
+           family={Sampaio},
+           familyi={S\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=79f91f914d89d7200321f3c86079d4d2}{%
+           family={Stern},
+           familyi={S\bibinitperiod},
+           given={M.\bibnamedelimi B.},
+           giveni={M\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=77bc108c95496c6dde442b916fcbca69}{%
+           family={Dodel},
+           familyi={D\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=06adaa8a3b29e0df3e11b464d4d38200}{%
+           family={Dubois},
+           familyi={D\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=80d963830d948bebbd130dd3ec52cc4e}{%
+           family={Holloway},
+           familyi={H\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=7fec82dad8e7564cc385e5d9d65a2603}{%
+           family={Jankovic},
+           familyi={J\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c630438cead0212e167197e0beb781fb}{%
+           family={Kulisevsky},
+           familyi={K\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c2f2469512027050bb91ac1bc0766975}{%
+           family={Lang},
+           familyi={L\bibinitperiod},
+           given={A.\bibnamedelimi E.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=a1f6dc8f605829d98f2977c0937c9db5}{%
+           family={Lees},
+           familyi={L\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=74049518b26f39d40f6347bfbbb2b055}{%
+           family={Leurgans},
+           familyi={L\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1101b17dce7d09fa980cbf53b5bf2b12}{%
+           family={LeWitt},
+           familyi={L\bibinitperiod},
+           given={P.\bibnamedelimi A.},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=3cbfc0e6d0a9f145cfb671f8459bbae6}{%
+           family={Nyenhuis},
+           familyi={N\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a2d2e5eb20b3db2241d076e5b6b105ab}{%
+           family={Olanow},
+           familyi={O\bibinitperiod},
+           given={C.\bibnamedelimi W.},
+           giveni={C\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=8c45c7019f8179c90f34d80733065266}{%
+           family={Rascol},
+           familyi={R\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod}}}%
+        {{hash=7b4a8536c5b72ee3072d45a7e6c8951a}{%
+           family={Schrag},
+           familyi={S\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=2fabbf023c616c377e23ab1fb56fa588}{%
+           family={Teresi},
+           familyi={T\bibinitperiod},
+           given={J.\bibnamedelimi A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=ad785057b990e18780e38a1c394969c3}{%
+           family={Hilten},
+           familyi={H\bibinitperiod},
+           given={J.\bibnamedelimi J.},
+           giveni={J\bibinitperiod\bibinitdelim J\bibinitperiod},
+           prefix={van},
+           prefixi={v\bibinitperiod}}}%
+        {{hash=fe4c8f662101eec31764e3ceed5ef651}{%
+           family={LaPelle},
+           familyi={L\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{875de6c4b49800d6f5f40381da4f7525}
+      \strng{fullhash}{63b44325bc876e5434ed775f7b4c3147}
+      \strng{bibnamehash}{875de6c4b49800d6f5f40381da4f7525}
+      \strng{authorbibnamehash}{875de6c4b49800d6f5f40381da4f7525}
+      \strng{authornamehash}{875de6c4b49800d6f5f40381da4f7525}
+      \strng{authorfullhash}{63b44325bc876e5434ed775f7b4c3147}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Movement disorders : official journal of the Movement Disorder Society}
+      \field{number}{15}
+      \field{title}{Movement Disorder Society-sponsored revision of the Unified Parkinson's Disease Rating Scale (MDS-UPDRS): scale presentation and clinimetric testing results}
+      \field{volume}{23}
+      \field{year}{2008}
+    \endentry
+    \entry{Amo-Salas}{article}{}
+      \name{author}{6}{}{%
+        {{hash=e219aa817e7f1c898d2bfb1587cc7e1a}{%
+           family={J.},
+           familyi={J\bibinitperiod},
+           given={Amo-Salas},
+           giveni={A\bibinithyphendelim S\bibinitperiod}}}%
+        {{hash=3175e97e83edfc57fddaecd5c0c931a3}{%
+           family={A.},
+           familyi={A\bibinitperiod},
+           given={Olivares-Gil},
+           giveni={O\bibinithyphendelim G\bibinitperiod}}}%
+        {{hash=1f7f30658baf4d3b0c8f850e41b0a958}{%
+           family={Á.},
+           familyi={Á\bibinitperiod},
+           given={García-Bustillo},
+           giveni={G\bibinithyphendelim B\bibinitperiod}}}%
+        {{hash=d749c39ad75567e77a984409784bc4b7}{%
+           family={D.},
+           familyi={D\bibinitperiod},
+           given={García-García},
+           giveni={G\bibinithyphendelim G\bibinitperiod}}}%
+        {{hash=896112c30dec989ee7afe75e29efec5a}{%
+           family={Á.},
+           familyi={Á\bibinitperiod},
+           given={Arnaiz-González},
+           giveni={A\bibinithyphendelim G\bibinitperiod}}}%
+        {{hash=457ab8c4800b185c2791d36462cae452}{%
+           family={Cubo},
+           familyi={C\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{109fc0c0b9e2ffb6821a9bff3f0d9396}
+      \strng{fullhash}{c9cb05201ae2b69b08dbebe6f63a0758}
+      \strng{bibnamehash}{109fc0c0b9e2ffb6821a9bff3f0d9396}
+      \strng{authorbibnamehash}{109fc0c0b9e2ffb6821a9bff3f0d9396}
+      \strng{authornamehash}{109fc0c0b9e2ffb6821a9bff3f0d9396}
+      \strng{authorfullhash}{c9cb05201ae2b69b08dbebe6f63a0758}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Healthcare}
+      \field{number}{439}
+      \field{title}{A Method for Automatic and Objective Scoring of Bradykinesia Using Orientation Sensors and Classification Algorithms}
+      \field{volume}{12}
+      \field{year}{2024}
+    \endentry
+    \entry{Khana}{article}{}
+      \name{author}{4}{}{%
+        {{hash=278fdd081b182819185e787f90dcced0}{%
+           family={Khana},
+           familyi={K\bibinitperiod},
+           given={T.},
+           giveni={T\bibinitperiod}}}%
+        {{hash=0899911b96e0ea9a607c7bfc23aa31b7}{%
+           family={Nyholmc},
+           familyi={N\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod}}}%
+        {{hash=39f11371f106ffbb0407f0261e34b245}{%
+           family={Westina},
+           familyi={W\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=e438b9b3bbcbafa556d99662337e9716}{%
+           family={Dougherty},
+           familyi={D\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{06194cdf8e35c57207464a91173d577a}
+      \strng{fullhash}{98509c645fb8ffc7be7b1c8e9e1726c0}
+      \strng{bibnamehash}{06194cdf8e35c57207464a91173d577a}
+      \strng{authorbibnamehash}{06194cdf8e35c57207464a91173d577a}
+      \strng{authornamehash}{06194cdf8e35c57207464a91173d577a}
+      \strng{authorfullhash}{98509c645fb8ffc7be7b1c8e9e1726c0}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Artificial Intelligence in Medicine}
+      \field{title}{A computer vision framework for finger-tapping evaluation in Parkinson’s disease}
+      \field{volume}{60}
+      \field{year}{2014}
+      \field{pages}{27\bibrangedash 40}
+      \range{pages}{14}
+    \endentry
+    \entry{Li1}{article}{}
+      \name{author}{6}{}{%
+        {{hash=ae6f64f7b429f6425fbe070323390f1b}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Z.},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=6549dcee0243271b905375ec392b1911}{%
+           family={Kang},
+           familyi={K\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+        {{hash=2e82223a44de89f067fb7144ea1132ab}{%
+           family={Cai},
+           familyi={C\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=4b44bba1743c2ad874f7d960887af663}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={X.},
+           giveni={X\bibinitperiod}}}%
+        {{hash=61ad10c626e1d641e0b1d7b5f48d3233}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Y.},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=51e5fb9f55c5b5d1edb17aea3861c908}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{eabde58fb49cfb136eadd6480e920b1b}
+      \strng{fullhash}{746b6e80ef1a86f5b0b35277d4a1c93a}
+      \strng{bibnamehash}{eabde58fb49cfb136eadd6480e920b1b}
+      \strng{authorbibnamehash}{eabde58fb49cfb136eadd6480e920b1b}
+      \strng{authornamehash}{eabde58fb49cfb136eadd6480e920b1b}
+      \strng{authorfullhash}{746b6e80ef1a86f5b0b35277d4a1c93a}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Jurnal of Medical and Biological Engineering}
+      \field{title}{An Automatic Evaluation Method for Parkinson's Dyskinesia Using Finger Tapping Video for Small Samples}
+      \field{volume}{42}
+      \field{year}{2022}
+      \field{pages}{351\bibrangedash 363}
+      \range{pages}{13}
+    \endentry
+    \entry{NINDS}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c18664e8d261e69a9e9a6de771e8f5b8}{%
+           family={{National Institutes of Neurological Disorders and Stroke}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{fullhash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{bibnamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{authorbibnamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{authornamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{authorfullhash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Parkinson's Disease}
+      \field{year}{2024}
+    \endentry
+    \entry{Manzanera}{article}{}
+      \name{author}{6}{}{%
+        {{hash=0d46957bffc0b938c2d84cb46e5f500c}{%
+           family={O.},
+           familyi={O\bibinitperiod},
+           given={Martinez-Manzanera},
+           giveni={M\bibinithyphendelim M\bibinitperiod}}}%
+        {{hash=d077f329d791001adb20617855ba1fd4}{%
+           family={E.},
+           familyi={E\bibinitperiod},
+           given={Roosma},
+           giveni={R\bibinitperiod}}}%
+        {{hash=c076cb91a39f4f33a4203ae41d0d61ea}{%
+           family={M.},
+           familyi={M\bibinitperiod},
+           given={Beudel},
+           giveni={B\bibinitperiod}}}%
+        {{hash=2c3707201813a9f396e8c754e67f30be}{%
+           family={W.},
+           familyi={W\bibinitperiod},
+           given={Borgemeester\bibnamedelima R.},
+           giveni={B\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=c305b8490759796ba5c3aefb00d719f3}{%
+           family={T.},
+           familyi={T\bibinitperiod},
+           given={Van\bibnamedelima Laar},
+           giveni={V\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=532e3f04f29f98db913b3de954d49b59}{%
+           family={M.},
+           familyi={M\bibinitperiod},
+           given={Maurits\bibnamedelima N.},
+           giveni={M\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{c0dba2662e2fd59516788ce6dbe0a667}
+      \strng{fullhash}{216059f152493ab781ada18150eaf516}
+      \strng{bibnamehash}{c0dba2662e2fd59516788ce6dbe0a667}
+      \strng{authorbibnamehash}{c0dba2662e2fd59516788ce6dbe0a667}
+      \strng{authornamehash}{c0dba2662e2fd59516788ce6dbe0a667}
+      \strng{authorfullhash}{216059f152493ab781ada18150eaf516}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE transactions on bio-medical engineering}
+      \field{number}{63}
+      \field{title}{Computer Vision for Parkinson’s Disease Evaluation: A Survey on Finger Tapping}
+      \field{volume}{5}
+      \field{year}{2016}
+      \field{pages}{1016\bibrangedash 1024}
+      \range{pages}{9}
+    \endentry
+    \entry{wiki}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e4fe31655828396ee4532f0cbd55157d}{%
+           family={{Parkinson’s Disease Research, Education and Clinical Centers}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{fullhash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{bibnamehash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{authorbibnamehash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{authornamehash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{authorfullhash}{e4fe31655828396ee4532f0cbd55157d}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-01-29}
+      \field{title}{Schwab and England ADL scale}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb www.parkinsons.va.gov.
+      \endverb
+      \verb{url}
+      \verb www.parkinsons.va.gov.
+      \endverb
+    \endentry
+    \entry{Stamatakis}{article}{}
+      \name{author}{7}{}{%
+        {{hash=0e82f32920f803271f6733a74a71328c}{%
+           family={Stamatakis},
+           familyi={S\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9955428c356ad9cdc383e1ee571526b0}{%
+           family={Ambroise},
+           familyi={A\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=6de1d285ccf0daa0eff9df1a1a461bd4}{%
+           family={Crémers},
+           familyi={C\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=be904699130740865055b5786e73a84d}{%
+           family={Sharei},
+           familyi={S\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=69c337e75dece6a185b654911838697e}{%
+           family={Delvaux},
+           familyi={D\bibinitperiod},
+           given={V.},
+           giveni={V\bibinitperiod}}}%
+        {{hash=d48689a76a82c0b4ffa808ee9d2407ba}{%
+           family={Macq},
+           familyi={M\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=36e82deaa1a643f1a4646ea9b9e3b116}{%
+           family={Garraux},
+           familyi={G\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Hindawi Publishing Corporation}%
+      }
+      \strng{namehash}{c60043910e0aa8116647c44afa009221}
+      \strng{fullhash}{6d8db0b819b829b6d9dab1e3bc25962c}
+      \strng{bibnamehash}{c60043910e0aa8116647c44afa009221}
+      \strng{authorbibnamehash}{c60043910e0aa8116647c44afa009221}
+      \strng{authornamehash}{c60043910e0aa8116647c44afa009221}
+      \strng{authorfullhash}{6d8db0b819b829b6d9dab1e3bc25962c}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Computational Intelligence and Neuroscience}
+      \field{title}{Finger Tapping Clinimetric Score Prediction in Parkinson’s Disease Using Low-Cost Accelerometers}
+      \field{volume}{2013}
+      \field{year}{2013}
+    \endentry
+    \entry{Sveinbjornsdottir}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1c040592de0d75e0417d4e13e4f3b2c4}{%
+           family={Sveinbjornsdottir},
+           familyi={S\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \strng{fullhash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \strng{bibnamehash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \strng{authorbibnamehash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \strng{authornamehash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \strng{authorfullhash}{1c040592de0d75e0417d4e13e4f3b2c4}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Neurochemistry}
+      \field{title}{The clinical symptoms of Parkinson's disease}
+      \field{volume}{139}
+      \field{year}{2016}
+      \field{pages}{318\bibrangedash 324}
+      \range{pages}{7}
+    \endentry
+    \entry{Zupanic}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=8bf3aad82f059e9b49be11fe6fe59677}{%
+           family={Zupanic},
+           familyi={Z\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Fakulteta za računalništvo in informatiko}%
+      }
+      \strng{namehash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \strng{fullhash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \strng{bibnamehash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \strng{authorbibnamehash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \strng{authornamehash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \strng{authorfullhash}{8bf3aad82f059e9b49be11fe6fe59677}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Avtomatsko ocenjevanje testa tapkanja s prsti pri bolnikih s Parkinsonovo boleznijo}
+      \field{year}{2024}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
