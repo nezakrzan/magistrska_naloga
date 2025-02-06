@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.9)  2 FEB 2025 15:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.9)  5 FEB 2025 12:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -689,6 +689,9 @@ Package biblatex Info: Reference segment=0 on input line 28.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
+LaTeX Warning: Citation 'NINDS' on page 1 undefined on input line 41.
+
+
 Overfull \hbox (15.2421pt too wide) in paragraph at lines 34--42
 \T1/cmr/m/n/12 simp-tomi so tre-mor oz. tre-se-nje, bra-di-ki-ne-zija, to-gost mi-²ic(rigidnost) in ne-sta-bil-nost(moteni
  []
@@ -699,21 +702,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--42
  []
 
 
+LaTeX Warning: Citation 'Sveinbjornsdottir' on page 1 undefined on input line 44.
+
+
+LaTeX Warning: Citation 'Goetz' on page 1 undefined on input line 47.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 43--48
 
  []
 
+
+LaTeX Warning: Citation 'Bhidayasiri' on page 1 undefined on input line 55.
+
+
+LaTeX Warning: Citation 'wiki' on page 1 undefined on input line 55.
+
 [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+
+LaTeX Warning: Citation 'Goetz' on page 2 undefined on input line 77.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 74--78
 
  []
 
+
+LaTeX Warning: Citation 'Goetz' on page 2 undefined on input line 89.
+
+
+LaTeX Warning: Citation 'Khana' on page 2 undefined on input line 89.
+
+
+LaTeX Warning: Citation 'Stamatakis' on page 2 undefined on input line 127.
+
+
+LaTeX Warning: Citation 'Stamatakis' on page 2 undefined on input line 127.
+
 [2]
+
+LaTeX Warning: Citation 'Manzanera' on page 3 undefined on input line 137.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 134--138
 
  []
+
+
+LaTeX Warning: Citation 'Amo-Salas' on page 3 undefined on input line 141.
+
+
+LaTeX Warning: Citation 'Amprimoa' on page 3 undefined on input line 145.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 139--146
@@ -751,31 +792,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 223--227
  []
 
 
+LaTeX Warning: Citation 'Zupanic' on page 5 undefined on input line 238.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 238--239
 
  []
 
 [5]
+
+LaTeX Warning: Citation 'Zupanic' on page 6 undefined on input line 255.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 259--262
 
  []
+
+
+LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 264.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 263--265
 
  []
 
-<slike/coco_hand.png, id=71, 301.125pt x 259.97125pt>
+<slike/coco_hand.png, id=45, 301.125pt x 259.97125pt>
 File: slike/coco_hand.png Graphic file (type png)
 <use slike/coco_hand.png>
 Package pdftex.def Info: slike/coco_hand.png  used on input line 268.
 (pdftex.def)             Requested size: 317.07614pt x 273.76726pt.
+
+LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 269.
+
+
+LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 269.
+
 [6]
 Underfull \hbox (badness 10000) in paragraph at lines 279--285
 
  []
 
-<slike/distances_plot_both.png, id=85, 722.7pt x 433.62pt>
+<slike/distances_plot_both.png, id=55, 722.7pt x 433.62pt>
 File: slike/distances_plot_both.png Graphic file (type png)
 <use slike/distances_plot_both.png>
 Package pdftex.def Info: slike/distances_plot_both.png  used on input line 291.
@@ -790,7 +847,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 329--330
 
  []
 
-<slike/ocene.png, id=97, 725.71124pt x 695.59875pt>
+<slike/ocene.png, id=67, 725.71124pt x 695.59875pt>
 File: slike/ocene.png Graphic file (type png)
 <use slike/ocene.png>
 Package pdftex.def Info: slike/ocene.png  used on input line 333.
@@ -799,6 +856,9 @@ Package pdftex.def Info: slike/ocene.png  used on input line 333.
 Underfull \hbox (badness 10000) in paragraph at lines 341--343
 
  []
+
+
+LaTeX Warning: Citation 'Zupanic' on page 9 undefined on input line 346.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 344--350
@@ -811,27 +871,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 351--359
  []
 
 [9 <./slike/ocene.png>] [10]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 367.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-) [11] (./dispozicija.aux)
+
+LaTeX Warning: Empty bibliography on input line 367.
+
+(./dispozicija.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                dispozicija
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'dispozicija.run.xml'.
 \openout1 = `dispozicija.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20018 strings out of 476025
- 353125 string characters out of 5790017
+ 19914 strings out of 476025
+ 350174 string characters out of 5790017
  1864388 words of memory out of 5000000
- 40171 multiletter control sequences out of 15000+600000
- 524133 words of font info for 59 fonts, out of 8000000 for 9000
+ 40086 multiletter control sequences out of 15000+600000
+ 523145 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,7n,90p,837b,1451s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on dispozicija.pdf (11 pages, 1192476 bytes).
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on dispozicija.pdf (10 pages, 1154956 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 177 compressed objects within 2 object streams
- 46 named destinations out of 1000 (max. 500000)
+ 177 PDF objects out of 1000 (max. 8388607)
+ 133 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  88 words of extra memory for PDF output out of 10000 (max. 10000000)
 
