@@ -2365,21 +2365,18 @@
     <bcf:citekey order="2" intorder="1">Sveinbjornsdottir</bcf:citekey>
     <bcf:citekey order="3" intorder="1">Goetz</bcf:citekey>
     <bcf:citekey order="4" intorder="1">Bhidayasiri</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">wiki</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">Goetz</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">Goetz</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">Khana</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">Stamatakis</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">Stamatakis</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">Manzanera</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">Amo-Salas</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">Amprimoa</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">Zupanic</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">Zupanic</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">Li1</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">Li1</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">Li1</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">Zupanic</bcf:citekey>
+    <bcf:citekey order="4" intorder="2">wiki</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">Goetz</bcf:citekey>
+    <bcf:citekey order="5" intorder="2">Khana</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">Stamatakis</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">Stamatakis</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">Manzanera</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">Amo-Salas</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">Amprimoa</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">Zupanic</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">Li1</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">Li1</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">Li1</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

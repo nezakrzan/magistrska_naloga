@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.9)  5 FEB 2025 12:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.10.9)  8 FEB 2025 08:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/Users/nezakrzan/Documents/magistrska_naloga/dispozicija/dispozicija.tex
-(/Users/nezakrzan/Documents/magistrska_naloga/dispozicija/dispozicija.tex
+**/Users/nezakrzan/Documents/magistrska_naloga/dispozicija/dispozicija_new.tex
+(/Users/nezakrzan/Documents/magistrska_naloga/dispozicija/dispozicija_new.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
@@ -417,6 +417,8 @@ Package biblatex Info: ... file 'blx-dm.def' found.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/biblatex/blx-dm.def
 File: blx-dm.def 2023/03/05 v3.19 biblatex localization (PK/MW)
 )
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'numeric.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@afterword=\count346
@@ -590,54 +592,68 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen193
 \Gm@layoutvoffset=\dimen194
 \Gm@dimlist=\toks30
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2022-09-14 v5.2n context-sensitive quotations (JAW)
+\csq@reset=\count429
+\csq@gtype=\count430
+\csq@glevel=\count431
+\csq@qlevel=\count432
+\csq@maxlvl=\count433
+\csq@tshold=\count434
+\csq@ltx@everypar=\toks31
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2022-09-14 v5.2n csquotes generic definitions (JAW)
 )
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+))
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... found 'babel' package.
+Package csquotes Info: Adjusting default style.
+Package csquotes Info: Redefining alias 'default' -> 'slovene'.
+ (./dispozicija_new.aux)
+\openout1 = `dispozicija_new.aux'.
 
-Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
-(biblatex)                Loading 'csquotes' recommended.
-
-\@quotelevel=\count429
-\@quotereset=\count430
-(./dispozicija.aux)
-\openout1 = `dispozicija.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 28.
-LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count431
+\scratchcounter=\count435
 \scratchdimen=\dimen195
 \scratchbox=\box65
-\nofMPsegments=\count432
-\nofMParguments=\count433
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count434
+\nofMPsegments=\count436
+\nofMParguments=\count437
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count438
 \MPscratchDim=\dimen196
-\MPnumerator=\count435
-\makeMPintoPDFobject=\count436
-\everyMPtoPDFconversion=\toks32
+\MPnumerator=\count439
+\makeMPintoPDFobject=\count440
+\everyMPtoPDFconversion=\toks33
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 28.
+Package hyperref Info: Link coloring OFF on input line 31.
 Package biblatex Info: Trying to load language 'slovene'...
 Package biblatex Info: ... file 'slovene.lbx' found.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/biblatex/lbx/slovene.lbx
@@ -646,13 +662,13 @@ File: slovene.lbx 2023/03/05 v3.19 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout3 = `dispozicija.bcf'.
+\openout3 = `dispozicija_new.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'dispozicija.bbl' found.
- (./dispozicija.bbl)
-Package biblatex Info: Reference section=0 on input line 28.
-Package biblatex Info: Reference segment=0 on input line 28.
+Package biblatex Info: ... file 'dispozicija_new.bbl' found.
+ (./dispozicija_new.bbl)
+Package biblatex Info: Reference section=0 on input line 31.
+Package biblatex Info: Reference segment=0 on input line 31.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -689,72 +705,30 @@ Package biblatex Info: Reference segment=0 on input line 28.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-LaTeX Warning: Citation 'NINDS' on page 1 undefined on input line 41.
-
-
-Overfull \hbox (15.2421pt too wide) in paragraph at lines 34--42
-\T1/cmr/m/n/12 simp-tomi so tre-mor oz. tre-se-nje, bra-di-ki-ne-zija, to-gost mi-²ic(rigidnost) in ne-sta-bil-nost(moteni
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 34--42
+Underfull \hbox (badness 10000) in paragraph at lines 37--45
 
  []
 
 
-LaTeX Warning: Citation 'Sveinbjornsdottir' on page 1 undefined on input line 44.
-
-
-LaTeX Warning: Citation 'Goetz' on page 1 undefined on input line 47.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--48
+Underfull \hbox (badness 10000) in paragraph at lines 46--51
 
  []
-
-
-LaTeX Warning: Citation 'Bhidayasiri' on page 1 undefined on input line 55.
-
-
-LaTeX Warning: Citation 'wiki' on page 1 undefined on input line 55.
 
 [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
 
-LaTeX Warning: Citation 'Goetz' on page 2 undefined on input line 77.
+LaTeX Warning: Reference `table:mds_updrs' on page 2 undefined on input line 77.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--78
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
 
  []
 
-
-LaTeX Warning: Citation 'Goetz' on page 2 undefined on input line 89.
-
-
-LaTeX Warning: Citation 'Khana' on page 2 undefined on input line 89.
-
-
-LaTeX Warning: Citation 'Stamatakis' on page 2 undefined on input line 127.
-
-
-LaTeX Warning: Citation 'Stamatakis' on page 2 undefined on input line 127.
-
 [2]
-
-LaTeX Warning: Citation 'Manzanera' on page 3 undefined on input line 137.
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 134--138
 
  []
-
-
-LaTeX Warning: Citation 'Amo-Salas' on page 3 undefined on input line 141.
-
-
-LaTeX Warning: Citation 'Amprimoa' on page 3 undefined on input line 145.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 139--146
@@ -762,144 +736,105 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--146
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 150--155
+Underfull \hbox (badness 10000) in paragraph at lines 147--152
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 156--165
+Underfull \hbox (badness 10000) in paragraph at lines 153--157
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 166--171
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 172--178
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 179--201
+Underfull \hbox (badness 10000) in paragraph at lines 158--168
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 223--227
+Underfull \hbox (badness 10000) in paragraph at lines 218--221
 
  []
 
 
-LaTeX Warning: Citation 'Zupanic' on page 5 undefined on input line 238.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
 
  []
 
-[5]
-
-LaTeX Warning: Citation 'Zupanic' on page 6 undefined on input line 255.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 259--262
-
- []
-
-
-LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 264.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 263--265
-
- []
-
-<slike/coco_hand.png, id=45, 301.125pt x 259.97125pt>
+<slike/coco_hand.png, id=64, 301.125pt x 259.97125pt>
 File: slike/coco_hand.png Graphic file (type png)
 <use slike/coco_hand.png>
-Package pdftex.def Info: slike/coco_hand.png  used on input line 268.
+Package pdftex.def Info: slike/coco_hand.png  used on input line 227.
 (pdftex.def)             Requested size: 317.07614pt x 273.76726pt.
-
-LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 269.
-
-
-LaTeX Warning: Citation 'Li1' on page 6 undefined on input line 269.
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 279--285
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 232--239
 
  []
 
-<slike/distances_plot_both.png, id=55, 722.7pt x 433.62pt>
+<slike/distances_plot_both.png, id=79, 722.7pt x 433.62pt>
 File: slike/distances_plot_both.png Graphic file (type png)
 <use slike/distances_plot_both.png>
-Package pdftex.def Info: slike/distances_plot_both.png  used on input line 291.
+Package pdftex.def Info: slike/distances_plot_both.png  used on input line 245.
 (pdftex.def)             Requested size: 362.37569pt x 217.4248pt.
-[7 <./slike/coco_hand.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 300--302
+[6 <./slike/coco_hand.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 253--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 329--330
+Underfull \hbox (badness 10000) in paragraph at lines 282--283
 
  []
 
-<slike/ocene.png, id=67, 725.71124pt x 695.59875pt>
+<slike/ocene.png, id=86, 725.71124pt x 695.59875pt>
 File: slike/ocene.png Graphic file (type png)
 <use slike/ocene.png>
-Package pdftex.def Info: slike/ocene.png  used on input line 333.
+Package pdftex.def Info: slike/ocene.png  used on input line 286.
 (pdftex.def)             Requested size: 407.66833pt x 390.76387pt.
-[8 <./slike/distances_plot_both.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 341--343
+[7 <./slike/distances_plot_both.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 295--297
 
  []
 
 
-LaTeX Warning: Citation 'Zupanic' on page 9 undefined on input line 346.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 344--350
+Underfull \hbox (badness 10000) in paragraph at lines 298--303
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--359
+Underfull \hbox (badness 10000) in paragraph at lines 304--308
 
  []
 
-[9 <./slike/ocene.png>] [10]
+[8 <./slike/ocene.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 309--322
 
-LaTeX Warning: Empty bibliography on input line 367.
+ []
 
-(./dispozicija.aux)
+[9]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 330.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+) [10] (./dispozicija_new.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                dispozicija
-(biblatex)                and rerun LaTeX afterwards.
-
-Package logreq Info: Writing requests to 'dispozicija.run.xml'.
-\openout1 = `dispozicija.run.xml'.
+Package logreq Info: Writing requests to 'dispozicija_new.run.xml'.
+\openout1 = `dispozicija_new.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 19914 strings out of 476025
- 350174 string characters out of 5790017
+ 20591 strings out of 476025
+ 363059 string characters out of 5790017
  1864388 words of memory out of 5000000
- 40086 multiletter control sequences out of 15000+600000
- 523145 words of font info for 57 fonts, out of 8000000 for 9000
+ 40737 multiletter control sequences out of 15000+600000
+ 524133 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,7n,90p,837b,1451s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on dispozicija.pdf (10 pages, 1154956 bytes).
+ 89i,7n,90p,841b,1451s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on dispozicija_new.pdf (10 pages, 1164765 bytes).
 PDF statistics:
- 177 PDF objects out of 1000 (max. 8388607)
- 133 compressed objects within 2 object streams
- 32 named destinations out of 1000 (max. 500000)
+ 205 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
  88 words of extra memory for PDF output out of 10000 (max. 10000000)
 

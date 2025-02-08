@@ -41,13 +41,13 @@
   >
 ]>
 <requests version="1.0">
-  <internal package="biblatex" priority="9" active="1">
+  <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>dispozicija.bcf</file>
+      <file>dispozicija_new.bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>dispozicija.bbl</file>
+      <file>dispozicija_new.bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -60,23 +60,23 @@
       <file>slovene.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="1">
+  <external package="biblatex" priority="5" active="0">
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>dispozicija</infile>
+      <infile>dispozicija_new</infile>
     </cmdline>
     <input>
-      <file>dispozicija.bcf</file>
+      <file>dispozicija_new.bcf</file>
     </input>
     <output>
-      <file>dispozicija.bbl</file>
+      <file>dispozicija_new.bbl</file>
     </output>
     <provides type="dynamic">
-      <file>dispozicija.bbl</file>
+      <file>dispozicija_new.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>dispozicija.bcf</file>
+      <file>dispozicija_new.bcf</file>
     </requires>
     <requires type="editable">
       <file>literatura.bib</file>

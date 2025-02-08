@@ -373,17 +373,24 @@
       \range{pages}{13}
     \endentry
     \entry{NINDS}{misc}{}
-      \name{author}{1}{}{%
-        {{hash=c18664e8d261e69a9e9a6de771e8f5b8}{%
-           family={{National Institutes of Neurological Disorders and Stroke}},
-           familyi={N\bibinitperiod}}}%
+      \name{author}{2}{}{%
+        {{hash=c08843c2fff8ab654b2507532f1e3ca8}{%
+           family={Neurological\bibnamedelima Disorders},
+           familyi={N\bibinitperiod\bibinitdelim D\bibinitperiod},
+           given={National\bibnamedelima Institutes},
+           giveni={N\bibinitperiod\bibinitdelim I\bibinitperiod},
+           prefix={of},
+           prefixi={o\bibinitperiod}}}%
+        {{hash=8e763d9065582268c9ffa345a3f81f5f}{%
+           family={Stroke},
+           familyi={S\bibinitperiod}}}%
       }
-      \strng{namehash}{c18664e8d261e69a9e9a6de771e8f5b8}
-      \strng{fullhash}{c18664e8d261e69a9e9a6de771e8f5b8}
-      \strng{bibnamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
-      \strng{authorbibnamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
-      \strng{authornamehash}{c18664e8d261e69a9e9a6de771e8f5b8}
-      \strng{authorfullhash}{c18664e8d261e69a9e9a6de771e8f5b8}
+      \strng{namehash}{a6acfc444007e24441699904ac7507fb}
+      \strng{fullhash}{a6acfc444007e24441699904ac7507fb}
+      \strng{bibnamehash}{a6acfc444007e24441699904ac7507fb}
+      \strng{authorbibnamehash}{a6acfc444007e24441699904ac7507fb}
+      \strng{authornamehash}{a6acfc444007e24441699904ac7507fb}
+      \strng{authorfullhash}{a6acfc444007e24441699904ac7507fb}
       \field{sortinit}{N}
       \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
       \field{labelnamesource}{author}
@@ -443,17 +450,24 @@
       \range{pages}{9}
     \endentry
     \entry{wiki}{misc}{}
-      \name{author}{1}{}{%
-        {{hash=e4fe31655828396ee4532f0cbd55157d}{%
-           family={{Parkinson’s Disease Research, Education and Clinical Centers}},
-           familyi={P\bibinitperiod}}}%
+      \name{author}{2}{}{%
+        {{hash=ae427454a3f70521ab486f73f8a8f202}{%
+           family={Parkinson’s\bibnamedelimb Disease\bibnamedelima Research},
+           familyi={P\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim R\bibinitperiod},
+           given={Education},
+           giveni={E\bibinitperiod}}}%
+        {{hash=7f63d72090f71df111b34c9bf63a83c4}{%
+           family={Centers},
+           familyi={C\bibinitperiod},
+           given={Clinical},
+           giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{e4fe31655828396ee4532f0cbd55157d}
-      \strng{fullhash}{e4fe31655828396ee4532f0cbd55157d}
-      \strng{bibnamehash}{e4fe31655828396ee4532f0cbd55157d}
-      \strng{authorbibnamehash}{e4fe31655828396ee4532f0cbd55157d}
-      \strng{authornamehash}{e4fe31655828396ee4532f0cbd55157d}
-      \strng{authorfullhash}{e4fe31655828396ee4532f0cbd55157d}
+      \strng{namehash}{c12ff934d0bfbdff99f2b733d6d7de8a}
+      \strng{fullhash}{c12ff934d0bfbdff99f2b733d6d7de8a}
+      \strng{bibnamehash}{c12ff934d0bfbdff99f2b733d6d7de8a}
+      \strng{authorbibnamehash}{c12ff934d0bfbdff99f2b733d6d7de8a}
+      \strng{authornamehash}{c12ff934d0bfbdff99f2b733d6d7de8a}
+      \strng{authorfullhash}{c12ff934d0bfbdff99f2b733d6d7de8a}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
